@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Relation Model{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="/static/css/relationmodel.css">
+{% endblock %}
+
+{% block relationmodel_active %}
+    <li class="active">
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <h1>上传文件</h1>
+    <form action="/kg/relationmodel" method=post enctype=multipart/form-data>
+        <input type="file" title="Select a file to add" name="file">&nbsp;&nbsp;
+        <input type="submit" value="Submit" class="btn btn-default">
+    </form>
+    <hr>
+</div>
+<div class="container">
+    <div class="label-container" align="right" style="margin-top: 1px">
+        <label for="name"><hr width=30 size=5 color=#9932cc style="border: 4px solid #9932cc; border-radius: 3px"><span>显式关系</span></label>
+        &nbsp;&nbsp;&nbsp;
+        <label for="name"><hr width=30 size=5 color=#335da8 style="border: 4px solid #335da8; border-radius: 3px"><span>隐式关系</span></label>
+    </div>
+    <div id="graph-container"></div>
+</div>
+<div id="relations" style="visibility: hidden">{{ relations }}</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/jquery-1.11.1.min.js"></script>
+    <script src="/static/sigmajs/src/sigma.core.js"></script>
+    <script src="/static/sigmajs/src/conrad.js"></script>
+    <script src="/static/sigmajs/src/utils/sigma.utils.js"></script>
+    <script src="/static/sigmajs/src/utils/sigma.polyfills.js"></script>
+    <script src="/static/sigmajs/src/sigma.settings.js"></script>
+    <script src="/static/sigmajs/src/classes/sigma.classes.dispatcher.js"></script>
+    <script src="/static/sigmajs/src/classes/sigma.classes.configurable.js"></script>
+    <script src="/static/sigmajs/src/classes/sigma.classes.graph.js"></script>
+    <script src="/static/sigmajs/src/classes/sigma.classes.camera.js"></script>
+    <script src="/static/sigmajs/src/classes/sigma.classes.quad.js"></script>
+    <script src="/static/sigmajs/src/classes/sigma.classes.edgequad.js"></script>
+    <script src="/static/sigmajs/src/captors/sigma.captors.mouse.js"></script>
+    <script src="/static/sigmajs/src/captors/sigma.captors.touch.js"></script>
+    <script src="/static/sigmajs/src/renderers/sigma.renderers.canvas.js"></script>
+    <script src="/static/sigmajs/src/renderers/sigma.renderers.webgl.js"></script>
+    <script src="/static/sigmajs/src/renderers/sigma.renderers.svg.js"></script>
+    <script src="/static/sigmajs/src/renderers/sigma.renderers.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+    <script src="/static/sigmajs/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+    <script src="/static/sigmajs/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="/static/sigmajs/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/svg/sigma.svg.utils.js"></script>
+    <script src="/static/sigmajs/src/renderers/svg/sigma.svg.nodes.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/svg/sigma.svg.edges.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/svg/sigma.svg.edges.curve.js"></script>
+    <script src="/static/sigmajs/src/renderers/svg/sigma.svg.labels.def.js"></script>
+    <script src="/static/sigmajs/src/renderers/svg/sigma.svg.hovers.def.js"></script>
+    <script src="/static/sigmajs/src/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="/static/sigmajs/src/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="/static/sigmajs/src/misc/sigma.misc.animation.js"></script>
+    <script src="/static/sigmajs/src/misc/sigma.misc.bindEvents.js"></script>
+    <script src="/static/sigmajs/src/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="/static/sigmajs/src/misc/sigma.misc.drawHovers.js"></script>
+
+    <script src="/static/sigmajs/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.layout.forceAtlas2/worker.js"></script>
+    <script src="/static/sigmajs/plugins/sigma.layout.forceAtlas2/supervisor.js"></script>
+    <script src="/static/js/bootstrap.file-input.js"></script>
+    <script src="/static/js/relationmodel.js"></script>
+{% endblock %}

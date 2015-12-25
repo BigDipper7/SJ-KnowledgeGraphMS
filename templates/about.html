@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="/static/css/about.css">
+{% endblock %}
+
+{% block about_active %}
+    <li class="active">
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h2>Content Understanding - Knowledge Graph</h2>
+
+                <p style="text-indent:2em;"><strong>CU-TJ（面向内容理解的知识图谱）</strong>是一套可供文本内容语义理解使用的知识图谱，具有千万级的实体和亿级的关系。对于给定的文本内容能够对其中的显式实体与隐式实体间进行关系发现与建模，并且给出各关系的可信性排序。
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-6" style="text-align: center; margin-bottom: 15px">
+                <section class="instance">
+                    <span>
+                        <h2>
+                            {{ instances }}
+                        </h2>
+                    </span>
+                </section>
+                <strong>Instances</strong>
+            </div>
+            <div class="col-md-6" style="text-align: center; margin-bottom: 15px">
+                <section class="relation">
+                    <span>
+                        <h2>
+                            {{ relations }}
+                        </h2>
+                    </span>
+                </section>
+                <strong>Relations</strong>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="container" id="taxonomy">
+        <div class="layout">
+            <div id="commonCategories">
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/人物" target="_blank">人物</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/政治人物" target="_blank">政治人物</a><br/>
+                            <a href="/kg/entity/历史人物" target="_blank">历史人物</a><br/>
+                            <a href="/kg/entity/文化人物" target="_blank">文化人物</a><br/>
+                            <a href="/kg/entity/虚拟人物" target="_blank">虚拟人物</a><br/>
+                            <a href="/kg/entity/经济人物" target="_blank">经济人物</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/自然" target="_blank">自然</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/动物" target="_blank">动物</a><br/>
+                            <a href="/kg/entity/植物" target="_blank">植物</a><br/>
+                            <a href="/kg/entity/自然灾害" target="_blank">自然灾害</a><br/>
+                            <a href="/kg/entity/自然资源" target="_blank">自然资源</a><br/>
+                            <a href="/kg/entity/自然现象" target="_blank">自然现象</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/文化" target="_blank">文化</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/美术" target="_blank">美术</a><br/>
+                            <a href="/kg/entity/戏剧" target="_blank">戏剧</a><br/>
+                            <a href="/kg/entity/舞蹈" target="_blank">舞蹈</a><br/>
+                            <a href="/kg/entity/摄影" target="_blank">摄影</a><br/>
+                            <a href="/kg/entity/曲艺" target="_blank">曲艺</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/体育" target="_blank">体育</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/体育奖项" target="_blank">体育奖项</a><br/>
+                            <a href="/kg/entity/体育设施" target="_blank">体育设施</a><br/>
+                            <a href="/kg/entity/体育项目" target="_blank">体育项目</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/组织" target="_blank">组织</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/企业组织" target="_blank">企业组织</a><br/>
+                            <a href="/kg/entity/事业组织" target="_blank">事业组织</a><br/>
+                            <a href="/kg/entity/宗教组织" target="_blank">宗教组织</a><br/>
+                            <a href="/kg/entity/虚拟组织" target="_blank">虚拟组织</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="noBorder">
+                    <dt>
+                    <h2><a href="/kg/entity/社会" target="_blank">社会</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/政治" target="_blank">政治</a><br/>
+                            <a href="/kg/entity/军事" target="_blank">军事</a><br/>
+                            <a href="/kg/entity/法律" target="_blank">法律</a><br/>
+                            <a href="/kg/entity/民族" target="_blank">民族</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/事件" target="_blank">事件</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/自然事件" target="_blank">自然事件</a><br/>
+                            <a href="/kg/entity/社会事件" target="_blank">社会事件</a><br/>
+                            <a href="/kg/entity/历史事件" target="_blank">历史事件</a><br/>
+                            <a href="/kg/entity/虚构事件" target="_blank">虚构事件</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/历史" target="_blank">历史</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/各国历史" target="_blank">各国历史</a><br/>
+                            <a href="/kg/entity/历史著作" target="_blank">历史著作</a><br/>
+                            <a href="/kg/entity/文物考古" target="_blank">文物考古</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/地理" target="_blank">地理</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/行政区划" target="_blank">行政区划</a><br/>
+                            <a href="/kg/entity/地形地貌" target="_blank">地形地貌</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/科技" target="_blank">科技</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/科研机构" target="_blank">科研机构</a><br/>
+                            <a href="/kg/entity/互联网" target="_blank">互联网</a><br/>
+                            <a href="/kg/entity/航空航天" target="_blank">航空航天</a><br/>
+                            <a href="/kg/entity/医学" target="_blank">医学</a><br/>
+                            <a href="/kg/entity/电子产品" target="_blank">电子产品</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                    <h2><a href="/kg/entity/娱乐" target="_blank">娱乐</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/动漫" target="_blank">动漫</a><br/>
+                            <a href="/kg/entity/电影" target="_blank">电影</a><br/>
+                            <a href="/kg/entity/电视剧" target="_blank">电视剧</a><br/>
+                            <a href="/kg/entity/小说" target="_blank">小说</a><br/>
+                            <a href="/kg/entity/电视节目" target="_blank">电视节目</a>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="noBorder">
+                    <dt>
+                    <h2><a href="/kg/entity/生活" target="_blank">生活</a></h2></dt>
+                    <dd>
+                        <div class="column">
+                            <a href="/kg/entity/美容" target="_blank">美容</a><br/>
+                            <a href="/kg/entity/时尚" target="_blank">时尚</a><br/>
+                            <a href="/kg/entity/旅游" target="_blank">旅游</a>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+{% endblock %}

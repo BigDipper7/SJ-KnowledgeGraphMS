@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Picture - {{ head }}{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="/static/css/pic.css">
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div align="center">
+            <h1>{{ head }}</h1>
+            <hr>
+            <img id="pic_container" src="{{ url }}">
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}知识卡片{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="/static/css/entitybase.css">
+{% endblock %}
+
+{% block entitybase_active %}
+<li class="active dropdown">
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+<h1>{{ name }}</h1>
+<hr />
+{% for item in data.data %}
+    <div style="margin-left: {{ item.level }}px;">
+        <h2>{{ item.name }}</h2>
+        <span>{{ item.hehe }}</span>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

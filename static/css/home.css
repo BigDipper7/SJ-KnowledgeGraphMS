@@ -1,0 +1,13 @@
+h1 {
+    margin-bottom: 50px;
+}
+
+#board {
+    position: absolute;
+    width: 1000px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    margin-left: -500px;
+    margin-top: -150px;
+}

@@ -1,0 +1,51 @@
+h2 {
+    margin-bottom: 15px;
+}
+
+section {
+    display: inline;
+    text-align: center;
+}
+
+section.instance h2 {
+	color: #335da8;
+    font-size: 40px;
+}
+
+section.relation h2 {
+	color: #b92d29;
+    font-size: 40px;
+}
+
+strong {
+	font-weight: bold;
+    font-size: 25px;
+}
+
+dl {
+    width: 170px;
+    height: 200px;
+    float: left;
+}
+
+dt h2 {
+    font-size: 35px;
+}
+
+dl {
+    border-right: 1px solid lightgrey;
+    padding-left: 35px;
+    padding-right: auto;
+}
+
+.noBorder {
+    border-right: none;
+}
+
+#taxonomy {
+    margin-top: 20px;
+    width: 1100px;
+    position: relative;
+    left: 50%;
+    margin-left: -520px;
+}

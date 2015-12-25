@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Video - {{ head }}{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="/static/css/video-js.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/video.css">
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div align="center">
+            <h1>{{ head }}</h1>
+            <hr>
+        </div>
+        <div class="container" id="video_container">
+            <video id="example_video" class="video-js vjs-default-skin" controls preload="none" width="800" height="400" data-setup="{}">
+                <source src="{{ url }}" type='video/mp4' />
+            </video>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/video.js"></script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+{% endblock %}
+
+{% block search_active %}
+<li class="active">
+{% endblock %}
+
+{% block page_content %}
+    <div class="container" id="board">
+        <div class="jumbotron">
+          <div class="container">
+              <h1 align="center"><img src="/static/images/21logo.gif">&nbsp;<span style="color: lightseagreen; font-family: 黑体;">关系搜索</span></h1>
+              <form action="/sjkg/search" method="get" id="data">
+                  <div clas="row">
+                    <div class="col-md-4">
+                        <label for="name">实体名一</label>
+                        <input type="text" name="entity1" id="entity1" class="form-control" aria-label="..." placeholder="实体1...">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="name">实体名二</label>
+                        <input type="text" name="entity2" id="entity2" class="form-control" aria-label="..." placeholder="实体2...">
+                    </div>
+                      <div class="col-md-2">
+                          <label for="name">层数</label>
+                          <select class="form-control" id="level" name="level">
+                             <option>1</option>
+                             <option>2</option>
+                             <option>3</option>
+                             <option>4</option>
+                             <option>5</option>
+                             <option>6</option>
+                             <option>大于6</option>
+                          </select>
+                      </div>
+                    <div class="col-md-2">
+                        <label for="name">&nbsp;</label>
+                        <p><button id="btnSearch" type="button" class="btn btn-success" style="width: 100px">搜索一下</button></p>
+                    </div>
+                </div>
+              </form>
+          </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="/static/jquery-1.11.1.min.js"></script>
+    <script src="/static/js/home.js"></script>
+    <script src="/static/dataTables/jquery.dataTables.min.js"></script>
+    <script src="/static/js/bootstrap.file-input.js"></script>
+    <script src="/static/js/modal.js"></script>
+{% endblock %}
+
