@@ -63,13 +63,16 @@ def entity_name(name):
     return render_template("entity/entityname.html", name=name)
 
 
+@app.route('/sjkg/home')
 @app.route('/sjkg')
 def home():
-    return redirect(url_for("hehe"))
-
-@app.route('/sjkg/home')
-def hehe():
+    '''bind both this two url to such a one method'''
+    # return redirect(url_for("hehe"))
     return render_template("home.html")
+
+# @app.route('/sjkg/home')
+# def hehe():
+#     return render_template("home.html")
 
 def haha(name):
     names = []
@@ -89,6 +92,8 @@ def haha(name):
 
 @app.route('/sjkg/submitCard', methods=['POST', 'GET'])
 def submitCard():
+    '''submitCard calling by the form post action happened in /sjkg/card
+    '''
     if request.method == "POST":
         name = request.form["hehe"].encode("utf-8")
         card_hehe = haha(request.form["hehe"].encode("utf-8"))
@@ -177,5 +182,4 @@ def show_vid(name):
     return render_template('vid.html', head=name1, url=url)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host="0.0.0.0")
-
+    app.run(debug=False, port=5000, host="0.0.0.0")
