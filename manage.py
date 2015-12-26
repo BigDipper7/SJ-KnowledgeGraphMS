@@ -84,15 +84,17 @@ def fetch_relations_by_entity(name):
         #handle condition if not exist the entityname
         return None
 
+    # print 'all changes....'
+
     # app.logger.info(rlts_origin_data.decode("unicode-escape"))
     for item in rlts_origin_data:
-        source = rlts_origin_data['source']
-        relation = rlts_origin_data['relation']
-        id = rlts_origin_data['id']
-        target = rlts_origin_data['target']
-        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('unicode-escape')
-        # app.logger.debug(info)
-        print info
+        source = item['source']
+        relation = item['relation']
+        id = item['id']
+        target = item['target']
+        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('utf-8')
+        app.logger.debug(info)
+        # print info
 
     for item_rlts in rlts_origin_data:
         if not item_rlts['relation'].startswith("attribute:"):
@@ -113,7 +115,7 @@ def submitCard():
 
         if not entity_name:
             app.logger.warning("No Input in form['entity_name'] from card page, alert~")
-            flash("filed content can not be empty! Try again!")
+            flash("Field content can not be empty! Try again!")
             return redirect(url_for('card'))
 
         result_rlts = fetch_relations_by_entity(entity_name)
