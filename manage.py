@@ -74,15 +74,13 @@ def home():
 # def hehe():
 #     return render_template("home.html")
 
-def haha(name):
+def fetch_relations_by_entity(name):
     names = []
     cayley_util = CayleyUtil()
     direct_names = cayley_util.find_relations_from_node(name)
     print direct_names
     print type(direct_names)
     if not direct_names:
-        app.logger.warning("No such entity < {0} >".format(name))
-        flash("Can not find entity < {0} >".format(name))
         return None
     for direct_name in direct_names:
         if not direct_name['relation'].startswith("attribute:"):
@@ -99,17 +97,22 @@ def submitCard():
     '''submitCard calling by the form post action happened in /sjkg/card
     '''
     if request.method == "POST":
-        name = request.form["hehe"].encode("utf-8")
-        if not name:
-            app.logger.warning("No Input in form['hehe'] from card page, alert~")
+        entity_name = request.form["entity_name"].encode("utf-8")
+
+        if not entity_name:
+            app.logger.warning("No Input in form['entity_name'] from card page, alert~")
             flash("filed content can not be empty! Try again!")
             return redirect(url_for('card'))
-        card_hehe = haha(name)
-        if not card_hehe:
-            # when card_hehe is None means no such entity found!
+
+        result_rlts = fetch_relations_by_entity(entity_name)
+
+        if not result_rlts:
+            # when result_rlts is None means no such entity found!
+            app.logger.warning("No such entity: {0}".format(entity_name))
+            flash("Can not find entity: {0}, Check it!".format(entity_name))
             return redirect(url_for('card'))
         else:
-            return render_template("card/card.html", data={"data": card_hehe}, name=name)
+            return render_template("card/card.html", data={"data": result_rlts}, name=entity_name)
 
 
 @app.route('/sjkg/search')
