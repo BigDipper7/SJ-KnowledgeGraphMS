@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
 from tj.db.util.cayley_util import CayleyUtil
@@ -80,6 +80,10 @@ def haha(name):
     direct_names = cayley_util.find_relations_from_node(name)
     print direct_names
     print type(direct_names)
+    if not direct_names:
+        app.logger.warning("No such entity < {0} >".format(name))
+        flash("Can not find entity < {0} >".format(name))
+        return None
     for direct_name in direct_names:
         if not direct_name['relation'].startswith("attribute:"):
             continue
@@ -96,8 +100,16 @@ def submitCard():
     '''
     if request.method == "POST":
         name = request.form["hehe"].encode("utf-8")
-        card_hehe = haha(request.form["hehe"].encode("utf-8"))
-        return render_template("card/card.html", data={"data": card_hehe}, name=name)
+        if not name:
+            app.logger.warning("No Input in form['hehe'] from card page, alert~")
+            flash("filed content can not be empty! Try again!")
+            return redirect(url_for('card'))
+        card_hehe = haha(name)
+        if not card_hehe:
+            # when card_hehe is None means no such entity found!
+            return redirect(url_for('card'))
+        else:
+            return render_template("card/card.html", data={"data": card_hehe}, name=name)
 
 
 @app.route('/sjkg/search')
@@ -182,4 +194,4 @@ def show_vid(name):
     return render_template('vid.html', head=name1, url=url)
 
 if __name__ == '__main__':
-    app.run(debug=False, port=5000, host="0.0.0.0")
+    app.run(debug=True, port=5000, host="0.0.0.0")
