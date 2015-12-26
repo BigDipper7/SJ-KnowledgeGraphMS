@@ -86,7 +86,20 @@ def fetch_relations_by_entity(name):
 
     # print 'all changes....'
 
-    # app.logger.info(rlts_origin_data.decode("unicode-escape"))
+    app.logger.info("show data in rlts_origin_data query by entity name:{0}",name)
+    for item in rlts_origin_data:
+        source = item['source']
+        relation = item['relation']
+        id = item['id']
+        target = item['target']
+        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('utf-8')
+        app.logger.debug(info)
+        # print info
+
+    rlts_origin_data.sort(key=lambda x: x['relation'], reverse=False)
+
+    app.logger.info("show data in rlts_origin_data after sort")
+
     for item in rlts_origin_data:
         source = item['source']
         relation = item['relation']
@@ -101,9 +114,9 @@ def fetch_relations_by_entity(name):
             continue
         predicate = item_rlts['relation'].replace("attribute:", "").split("/")
         p_len = len(predicate)
-        name_hehe = predicate[p_len - 1]
+        real_concept_1_subject = predicate[p_len - 1]
 
-        result_rlts.append({"name": name_hehe, "hehe": item_rlts['target'], "level": (p_len - 1) * 50})
+        result_rlts.append({"sect_title": real_concept_1_subject, "sect_text": item_rlts['target'], "margin_left": (p_len - 1) * 50})
     return result_rlts
 
 @app.route('/sjkg/submitCard', methods=['POST', 'GET'])
