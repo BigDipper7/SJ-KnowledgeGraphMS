@@ -129,20 +129,16 @@
 {% endblock %}
 
 {% block content %}
+
     {% for msg in get_flashed_messages() %}
     <div class="container">
-      <div class="flash_msg">
-        {{ msg }}
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong> {{ msg }}
       </div>
     </div>
-
-    <div></div>
-
-    <div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Warning!</strong> {{ msg }}
-    </div>
     {% endfor %}
+
 
     {% block page_content %}{% endblock %}
     <footer class="footer">
