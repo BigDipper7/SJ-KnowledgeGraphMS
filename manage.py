@@ -75,22 +75,34 @@ def home():
 #     return render_template("home.html")
 
 def fetch_relations_by_entity(name):
-    names = []
+    result_rlts = []
     cayley_util = CayleyUtil()
-    direct_names = cayley_util.find_relations_from_node(name)
-    print direct_names
-    print type(direct_names)
-    if not direct_names:
+    #get result  relations origin data
+    rlts_origin_data = cayley_util.find_relations_from_node(name)
+
+    if not rlts_origin_data:
+        #handle condition if not exist the entityname
         return None
-    for direct_name in direct_names:
-        if not direct_name['relation'].startswith("attribute:"):
+
+    # app.logger.info(rlts_origin_data.decode("unicode-escape"))
+    for item in rlts_origin_data:
+        source = rlts_origin_data['source']
+        relation = rlts_origin_data['relation']
+        id = rlts_origin_data['id']
+        target = rlts_origin_data['target']
+        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('unicode-escape')
+        # app.logger.debug(info)
+        print info
+
+    for item_rlts in rlts_origin_data:
+        if not item_rlts['relation'].startswith("attribute:"):
             continue
-        predicate = direct_name['relation'].replace("attribute:", "").split("/")
+        predicate = item_rlts['relation'].replace("attribute:", "").split("/")
         p_len = len(predicate)
         name_hehe = predicate[p_len - 1]
 
-        names.append({"name": name_hehe, "hehe": direct_name['target'], "level": (p_len - 1) * 50})
-    return names
+        result_rlts.append({"name": name_hehe, "hehe": item_rlts['target'], "level": (p_len - 1) * 50})
+    return result_rlts
 
 @app.route('/sjkg/submitCard', methods=['POST', 'GET'])
 def submitCard():
