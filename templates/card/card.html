@@ -32,16 +32,43 @@
             <span>{{ item_attr.sect_text }}</span>
         </div>
     {% endfor %}
+
+    <br/><br/>
     <hr />
-    {% for item_non_attr in data.rest_non_attrs %}
-        <div>
-            <p>
-                <strong>{{ item_non_attr.subject }}</strong>
-                {{ item_non_attr.predicate }}
-                <strong>{{ item_non_attr.object }}</strong>
-            </p>
-        </div>
-    {% endfor %}
+    <br/><br/>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">概念关系</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>概念一</th>
+                    <th>关系</th>
+                    <th>概念二</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% i = 0 %}
+                {% for item_non_attr in data.rest_non_attrs %}
+                <tr>
+                  <th scope="row">{{ i }}</th>
+                  <td>{{ item_non_attr.subject }}<</td>
+                  <td>{{ item_non_attr.predicate }}</td>
+                  <td>{{ item_non_attr.object }}</td>
+                </tr>
+                {% i += 1 %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- <div>
+        <h4>
+            <strong>{{ item_non_attr.subject }}</strong>
+            {{ item_non_attr.predicate }}
+            <strong>{{ item_non_attr.object }}</strong>
+        </h4>
+    </div> -->
 </div>
 {% endblock %}
 
