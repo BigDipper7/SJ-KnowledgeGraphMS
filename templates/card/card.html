@@ -28,17 +28,19 @@
     {% endfor %} -->
     <div class="panel panel-default">
         <div class="panel-heading">概念属性</div>
+        <div class="panel-body">
         {% for item_attr in data.rest_attrs %}
             <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
                 <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
                 <span>{{ item_attr.sect_text }}</span>
             </div>
         {% endfor %}
+        </div>
     </div>
 
-    <br/><br/>
+    <br/>
     <hr />
-    <br/><br/>
+    <br/>
 
     <div class="panel panel-default">
         <div class="panel-heading">概念关系</div>
