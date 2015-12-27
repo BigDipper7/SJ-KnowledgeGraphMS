@@ -84,7 +84,7 @@ def fetch_relations_by_entity(name):
 
     if not rlts_origin_data:
         #handle condition if not exist the entityname
-        return None
+        return None, None
 
     # print 'all changes....'
 
@@ -109,9 +109,12 @@ def fetch_relations_by_entity(name):
     rest_attrs, rest_non_attrs = _process_rlts_odata(rlts_origin_data)
     app.logger.error(rest_attrs)
     app.logger.error(rest_non_attrs)
-    return result_rlts
+    # return result_rlts
+    return rest_attrs, rest_non_attrs
 
 def _process_rlts_odata(rlts_origin_data):
+    '''generate section indicator in num, generate two kinds of model
+    '''
     rest_non_attrs = []#None atrributes
     rest_attrs = []#attributes
     attrs_no = [0,0,0,0]
@@ -175,15 +178,16 @@ def submitCard():
             flash("Field content can not be empty! Try again!")
             return redirect(url_for('card'))
 
-        result_rlts = fetch_relations_by_entity(entity_name)
+        # result_rlts = fetch_relations_by_entity(entity_name)
+        rest_attrs, rest_non_attrs = fetch_relations_by_entity(entity_name)
 
-        if not result_rlts:
+        if not rest_attrs and not rest_non_attrs:
             # when result_rlts is None means no such entity found!
             app.logger.warning("No such entity: {0}".format(entity_name))
             flash("Can not find entity: {0}, Check it!".format(entity_name))
             return redirect(url_for('card'))
         else:
-            return render_template("card/card.html", data={"data": result_rlts}, name=entity_name)
+            return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
 
 
 @app.route('/sjkg/search')

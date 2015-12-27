@@ -13,14 +13,30 @@
 
 {% block page_content %}
 <div class="container">
-<h1>{{ name }}</h1>
-<hr />
-{% for item in data.data %}
-    <div style="margin-left: {{ item.margin_left }}px;">
-        <h2>{{ item.sect_title }}</h2>
-        <span>{{ item.sect_text }}</span>
-    </div>
-{% endfor %}
+    <h1>{{ name }}</h1>
+    <hr />
+    <!-- {% for item in data.data %}
+        <div style="margin-left: {{ item.margin_left }}px;">
+            <h2>{{ item.sect_title }}</h2>
+            <span>{{ item.sect_text }}</span>
+        </div>
+    {% endfor %} -->
+    {% for item_attr in data.rest_attrs %}
+        <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
+            <h2>{{ item_attr.no }} , {{ item_attr.sect_title }}</h2>
+            <span>{{ item_attr.sect_text }}</span>
+        </div>
+    {% endfor %}
+    <hr />
+    {% for item_non_attr in data.rest_non_attrs %}
+        <div>
+            <p>
+                <strong>{{ item_non_attr.subject }}</strong>
+                {{ item_non_attr.predicate }}
+                <strong>{{ item_non_attr.object }}</strong>
+            </p>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}
 
