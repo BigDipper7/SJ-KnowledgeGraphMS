@@ -17,6 +17,7 @@ app.config['UPLOAD_FOLDER'] = './'
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 
+
 @app.route('/sjkg/card')
 def card():
     return render_template("card/cardbase.html")
@@ -74,6 +75,7 @@ def home():
 # def hehe():
 #     return render_template("home.html")
 
+
 def fetch_relations_by_entity(name):
     result_rlts = []
     cayley_util = CayleyUtil()
@@ -87,27 +89,13 @@ def fetch_relations_by_entity(name):
     # print 'all changes....'
 
     app.logger.info("show data in rlts_origin_data query by entity name:{0}",name)
-    for item in rlts_origin_data:
-        source = item['source']
-        relation = item['relation']
-        id = item['id']
-        target = item['target']
-        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('utf-8')
-        app.logger.debug(info)
-        # print info
+    _print_rlts_odata(rlts_origin_data)
 
+    #doing sorting using lambda expr
     rlts_origin_data.sort(key=lambda x: x['relation'], reverse=False)
 
     app.logger.info("show data in rlts_origin_data after sort")
-
-    for item in rlts_origin_data:
-        source = item['source']
-        relation = item['relation']
-        id = item['id']
-        target = item['target']
-        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('utf-8')
-        app.logger.debug(info)
-        # print info
+    _print_rlts_odata(rlts_origin_data)
 
     for item_rlts in rlts_origin_data:
         if not item_rlts['relation'].startswith("attribute:"):
@@ -118,6 +106,21 @@ def fetch_relations_by_entity(name):
 
         result_rlts.append({"sect_title": real_concept_1_subject, "sect_text": item_rlts['target'], "margin_left": (p_len - 1) * 50})
     return result_rlts
+
+def _print_rlts_odata(rlts_origin_data):
+    '''private method, just using to print rlts_origin_data.'''
+    if not rlts_origin_data:
+        app.logger.warning('Attention: rlts_origin_data is None')
+        return
+    for item in rlts_origin_data:
+        source = item['source']
+        relation = item['relation']
+        id = item['id']
+        target = item['target']
+        info = "source:{}, relation:{}, id:{}, target:{}".format(source, relation, id, target).decode('utf-8')
+        app.logger.debug(info)
+        # print info
+    return
 
 @app.route('/sjkg/submitCard', methods=['POST', 'GET'])
 def submitCard():
@@ -171,6 +174,7 @@ ALLOWED_EXTENSIONS = set(['xls', 'xlsx'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
 
+
 @app.route('/sjkg/excel_import', methods=['POST'])
 def excel_import():
     if request.method == 'POST':
@@ -185,6 +189,7 @@ def excel_import():
             return redirect(url_for("control", status="文件类型错误！"))
     return redirect(url_for("control", status="错误！请检查文件格式！"))
 
+
 @app.route('/sjkg/upload_pic', methods=['POST'])
 def upload_pic():
     if request.method == 'POST':
@@ -196,6 +201,7 @@ def upload_pic():
         url_prefix = '/sjkg/pic/' + file.filename
         cayley_util.insert_quads_triple(entity_name, 'attribute:图片'.encode('utf-8'), url_prefix.encode('utf-8'))
     return redirect(url_for("control", status="添加图片成功！"))
+
 
 @app.route('/sjkg/upload_vid', methods=['POST'])
 def upload_vid():
@@ -209,6 +215,7 @@ def upload_vid():
         cayley_util.insert_quads_triple(entity_name, 'attribute:视频'.encode('utf-8'), url_prefix.encode('utf-8'))
     return redirect(url_for("control", status="添加视频成功！"))
 
+
 @app.route('/sjkg/pic/<name>', methods=['GET'])
 def show_pic(name):
     index = name.index('.')
@@ -216,12 +223,16 @@ def show_pic(name):
     url = '/static/pic/' + name
     return render_template('pic.html', head=name1, url=url)
 
+
 @app.route('/sjkg/vid/<name>', methods=['GET'])
 def show_vid(name):
     index = name.index('.')
     name1 = name[0:index]
     url = '/static/vid/' + name
     return render_template('vid.html', head=name1, url=url)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host="0.0.0.0")
