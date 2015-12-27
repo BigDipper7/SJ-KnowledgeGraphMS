@@ -105,7 +105,48 @@ def fetch_relations_by_entity(name):
         real_concept_1_subject = predicate[p_len - 1]
 
         result_rlts.append({"sect_title": real_concept_1_subject, "sect_text": item_rlts['target'], "margin_left": (p_len - 1) * 50})
+
+    rest_attrs, rest_non_attrs = _process_rlts_odata(rlts_origin_data)
+    app.logger.error(rest_attrs)
+    app.logger.error(rest_non_attrs)
     return result_rlts
+
+def _process_rlts_odata(rlts_origin_data):
+    rest_non_attrs = []#None atrributes
+    rest_attrs = []#attributes
+    attrs_no = [0,0,0,0]
+
+    for item_rlts in rlts_origin_data:
+        item_rlts__source = item_rlts['source']
+        item_rlts__relation = item_rlts['relation']
+        item_rlts__id = item_rlts['id']
+        item_rlts__target = item_rlts['target']
+        if item_rlts__relation.startswith("attribute:"):
+            #means atrribute if curren entity
+            item_rlts__relation = item_rlts__relation.replace("atrribute:","")#del no useful attribute: prefix
+            hierachy_dirs_list = item_rlts__relation.split('/')
+            hir_len = len(hierachy_dirs_list)
+
+            sect_title = hierachy_dirs_list[hir_len-1]
+            margin_left = hir_len - 1
+
+            #there has some error, not always appear
+            while(len(attrs_no)<hir_len):
+                #ensure len equals
+                attrs_no.append(0)
+
+            attrs_no[hir_len-1] += 1
+            attrs_no[hir_len:]=[]#del not useful list num
+            no = ".".join(str(t) for t in attrs_no)
+            # for index in range(hir_len,len(attrs_no)):
+            #     attrs_no[index] = [1]
+
+            rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target,"margin_left":margin_left,"no":no})
+        else:
+            #means not the atrribute
+            rest_non_attrs.append({'subject':item_rlts__source, 'predicate':item_rlts__relation, 'object':item_rlts__target})
+
+    return rest_attrs, rest_non_attrs
 
 def _print_rlts_odata(rlts_origin_data):
     '''private method, just using to print rlts_origin_data.'''
@@ -232,7 +273,8 @@ def show_vid(name):
     return render_template('vid.html', head=name1, url=url)
 
 
-
-
+#----------------------------------------
+# main func snippet
+#----------------------------------------
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host="0.0.0.0")
