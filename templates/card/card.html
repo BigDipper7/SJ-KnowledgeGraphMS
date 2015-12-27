@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% i = 0 %}
+                <!-- {% i = 0 %}
                 {% for item_non_attr in data.rest_non_attrs %}
                 <tr>
                   <th scope="row">{{ i }}</th>
@@ -58,6 +58,14 @@
                   <td>{{ item_non_attr.object }}</td>
                 </tr>
                 {% i += 1 %}
+                {% endfor %} -->
+                {% for index in range(0,len(data.rest_non_attrs)) %}
+                <tr>
+                  <th scope="row">{{ index }}</th>
+                  <td>{{ data.rest_non_attrs[index].subject }}<</td>
+                  <td>{{ data.rest_non_attrs[index].predicate }}</td>
+                  <td>{{ data.rest_non_attrs[index].object }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
