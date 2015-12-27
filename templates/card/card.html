@@ -26,12 +26,15 @@
             <span>{{ item.sect_text }}</span>
         </div>
     {% endfor %} -->
-    {% for item_attr in data.rest_attrs %}
-        <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
-            <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
-            <span>{{ item_attr.sect_text }}</span>
-        </div>
-    {% endfor %}
+    <div class="panel panel-default">
+        <div class="panel-heading">概念属性</div>
+        {% for item_attr in data.rest_attrs %}
+            <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
+                <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
+                <span>{{ item_attr.sect_text }}</span>
+            </div>
+        {% endfor %}
+    </div>
 
     <br/><br/>
     <hr />
@@ -49,20 +52,10 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- {% i = 0 %}
-                {% for item_non_attr in data.rest_non_attrs %}
-                <tr>
-                  <th scope="row">{{ i }}</th>
-                  <td>{{ item_non_attr.subject }}<</td>
-                  <td>{{ item_non_attr.predicate }}</td>
-                  <td>{{ item_non_attr.object }}</td>
-                </tr>
-                {% i += 1 %}
-                {% endfor %} -->
-                {% for index in range(0,len(data.rest_non_attrs)) %}
+                {% for index in range(0,data.rest_non_attrs|length) %}
                 <tr>
                   <th scope="row">{{ index }}</th>
-                  <td>{{ data.rest_non_attrs[index].subject }}<</td>
+                  <td>{{ data.rest_non_attrs[index].subject }}</td>
                   <td>{{ data.rest_non_attrs[index].predicate }}</td>
                   <td>{{ data.rest_non_attrs[index].object }}</td>
                 </tr>
@@ -70,13 +63,6 @@
             </tbody>
         </table>
     </div>
-    <!-- <div>
-        <h4>
-            <strong>{{ item_non_attr.subject }}</strong>
-            {{ item_non_attr.predicate }}
-            <strong>{{ item_non_attr.object }}</strong>
-        </h4>
-    </div> -->
 </div>
 {% endblock %}
 
