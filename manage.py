@@ -126,7 +126,7 @@ def _process_rlts_odata(rlts_origin_data):
         item_rlts__target = item_rlts['target']
         if item_rlts__relation.startswith("attribute:"):
             #means atrribute if curren entity
-            item_rlts__relation = item_rlts__relation.replace("atrribute:","")#del no useful attribute: prefix
+            item_rlts__relation = item_rlts__relation.replace("attribute:","")#del no useful attribute: prefix
             hierachy_dirs_list = item_rlts__relation.split('/')
             hir_len = len(hierachy_dirs_list)
 

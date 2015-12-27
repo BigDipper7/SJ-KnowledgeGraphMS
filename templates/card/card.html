@@ -13,8 +13,13 @@
 
 {% block page_content %}
 <div class="container">
-    <h1>{{ name }}</h1>
+    <div class="jumbotron">
+        <h1>{{ name }}</h1>
+    </div>
     <hr />
+</div>
+
+<div class="container">
     <!-- {% for item in data.data %}
         <div style="margin-left: {{ item.margin_left }}px;">
             <h2>{{ item.sect_title }}</h2>
@@ -23,7 +28,7 @@
     {% endfor %} -->
     {% for item_attr in data.rest_attrs %}
         <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
-            <h2>{{ item_attr.no }} , {{ item_attr.sect_title }}</h2>
+            <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
             <span>{{ item_attr.sect_text }}</span>
         </div>
     {% endfor %}
