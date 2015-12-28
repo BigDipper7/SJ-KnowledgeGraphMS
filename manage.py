@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
 from tj.db.util.cayley_util import CayleyUtil
@@ -10,6 +10,10 @@ import json
 import threading
 import os
 
+import functools
+import inspect
+
+is_login = str('is_login')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jiu bu gao su ni'
@@ -18,8 +22,30 @@ bootstrap = Bootstrap(app)
 manager = Manager(app)
 
 
+def check_is_login(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        # func_args = inspect.getcallargs(func, *args, **kwargs)
+        # print func_args
+        # if func_args.get('username') != 'admin':
+        #     raise Exception('permission denied')
+        app.logger.debug('check_is_login')
+        if not session.get(is_login):
+            flash('Plz login first')
+            app.logger.error('must login first')
+            return redirect(url_for('card'))
+        return func(*args, **kwargs)
+    return wrapper
+
+
+@app.route('/sjkg/login')
+def login():
+    pass
+
+
 @app.route('/sjkg/card')
 def card():
+    session[is_login] = True
     return render_template("card/cardbase.html")
 
 
@@ -56,6 +82,8 @@ def control_relation_delete():
 
 @app.route('/sjkg/entity')
 def entity():
+    if session.get(is_login):
+        session.pop(is_login, None)
     return render_template("entity/entitybase.html")
 
 
@@ -66,6 +94,7 @@ def entity_name(name):
 
 @app.route('/sjkg/home')
 @app.route('/sjkg')
+@check_is_login
 def home():
     '''bind both this two url to such a one method'''
     # return redirect(url_for("hehe"))
