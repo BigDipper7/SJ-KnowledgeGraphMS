@@ -48,7 +48,7 @@ def login():
         if not username and not password:
             flash('Field can not be blank! Try again.')
             return redirect(url_for('login'))
-        elif username == "amdin" and password == 'nicai':
+        elif username == "admin" and password == 'nicai':
             session[is_login] = True
             flash('Login Success~')
             return redirect(url_for('home'))
@@ -60,6 +60,7 @@ def login():
 @app.route('/sjkg/logout', methods=['GET'])
 def logout():
     if session.get(is_login):
+        flash('Logout Success~')
         session.pop(is_login, None)
     return redirect(url_for('home'))
 
@@ -71,6 +72,7 @@ def card():
 
 
 @app.route('/sjkg/control', methods=['GET', 'POST'])
+@check_is_login
 def control():
     add_relation_form = AddRelationForm()
     cayley_util = CayleyUtil()
@@ -115,7 +117,7 @@ def entity_name(name):
 
 @app.route('/sjkg/home')
 @app.route('/sjkg')
-@check_is_login
+# @check_is_login
 def home():
     '''bind both this two url to such a one method'''
     # return redirect(url_for("hehe"))
