@@ -33,14 +33,35 @@ def check_is_login(func):
         if not session.get(is_login):
             flash('Plz login first')
             app.logger.error('must login first')
-            return redirect(url_for('card'))
+            return redirect(url_for('login'))
         return func(*args, **kwargs)
     return wrapper
 
 
-@app.route('/sjkg/login')
+@app.route('/sjkg/login', methods=['GET','PSOT'])
 def login():
-    pass
+    if request.method == 'GET':
+        return render_template('session/login.html')
+    elif request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if not username and not password:
+            flash('Field can not be blank! Try again.')
+            return redirect(url_for('login'))
+        elif username == "amdin" and password == 'nicai':
+            session[is_login] = True
+            flash('Login Success~')
+            return redirect(url_for('home'))
+        else:
+            flash('Wrong username or password! Try again.')
+            return redirect(url_for('login'))
+
+
+@app.route('/sjkg/logout', methods=['GET'])
+def logout():
+    if session.get(is_login):
+        session.pop(is_login, None)
+    return redirect(url_for('home'))
 
 
 @app.route('/sjkg/card')
