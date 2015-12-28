@@ -14,56 +14,11 @@
 {% block page_content %}
 <div class="container">
     <div class="jumbotron">
-        <h1>{{ name }}</h1>
-    </div>
-    <hr />
-</div>
-
-<div class="container">
-    <!-- {% for item in data.data %}
-        <div style="margin-left: {{ item.margin_left }}px;">
-            <h2>{{ item.sect_title }}</h2>
-            <span>{{ item.sect_text }}</span>
-        </div>
-    {% endfor %} -->
-    <div class="panel panel-primary">
-        <div class="panel-heading"><h2>概念属性</h2></div>
-        <div class="panel-body">
-        {% for item_attr in data.rest_attrs %}
-            <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
-                <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
-                <span>{{ item_attr.sect_text }}</span>
-            </div>
-        {% endfor %}
-        </div>
-    </div>
-
-    <br/>
-    <hr />
-    <br/>
-
-    <div class="panel panel-primary">
-        <div class="panel-heading"><h2>概念关系</h2></div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>概念一</th>
-                    <th>关系</th>
-                    <th>概念二</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for index in range(0,data.rest_non_attrs|length) %}
-                <tr>
-                  <th scope="row">{{ index }}</th>
-                  <td>{{ data.rest_non_attrs[index].subject }}</td>
-                  <td>{{ data.rest_non_attrs[index].predicate }}</td>
-                  <td>{{ data.rest_non_attrs[index].object }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <form class="" action="/sjkg/login" method="post">
+            username: <input type="text" name="username" value="username"/><br>
+            password: <input type="text" name="password" value="password"/><br>
+            <input type="submit" name="login" value="Login"/>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -38,7 +38,7 @@ def check_is_login(func):
     return wrapper
 
 
-@app.route('/sjkg/login', methods=['GET','PSOT'])
+@app.route('/sjkg/login', methods=['GET','POST'])
 def login():
     if request.method == 'GET':
         return render_template('session/login.html')
@@ -66,7 +66,7 @@ def logout():
 
 @app.route('/sjkg/card')
 def card():
-    session[is_login] = True
+    # session[is_login] = True
     return render_template("card/cardbase.html")
 
 
@@ -103,8 +103,8 @@ def control_relation_delete():
 
 @app.route('/sjkg/entity')
 def entity():
-    if session.get(is_login):
-        session.pop(is_login, None)
+    # if session.get(is_login):
+    #     session.pop(is_login, None)
     return render_template("entity/entitybase.html")
 
 
