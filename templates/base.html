@@ -132,16 +132,17 @@
 {% block content %}
 
     {% for msg in get_flashed_messages() %}
-    (% if msg.startswith('test') %)
-        <p>test </p>
-        </p>
-    {% endif %}
-    <div class="container">
-      <div class="alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning!</strong> {{ msg }}
-      </div>
-    </div>
+        (% if msg %)
+            <p>test </p>
+        {% else %}
+            <p>not test</p>
+        {% endif %}
+        <div class="container">
+          <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> {{ msg }}
+          </div>
+        </div>
     {% endfor %}
 
 

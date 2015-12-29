@@ -34,6 +34,12 @@
                 <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
                 <span>{{ item_attr.sect_text }}</span>
             </div>
+        {% else %}
+            <div class="">
+                <p>
+                    No Data Found
+                </p>
+            </div>
         {% endfor %}
         </div>
     </div>
@@ -68,6 +74,13 @@
                     <td>{{ item.subject }}</td>
                     <td>{{ item.predicate }}</td>
                     <td>{{ item.object }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th scope="row">0</th>
+                    <td></td>
+                    <td>No Data Found</td>
+                    <td></td>
                 </tr>
                 {% endfor %}
             </tbody>
