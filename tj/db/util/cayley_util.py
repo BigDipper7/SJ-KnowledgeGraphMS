@@ -24,6 +24,8 @@ class CayleyUtil(object):
     delete = "/api/v1/delete"
 
     def __init__(self, host="localhost", port="64210"):
+        ''' just init self.__url_prefix whit host and port
+        '''
         self.__url_prefix = "http://" + host + ":" + port
 
     @staticmethod
@@ -160,20 +162,3 @@ if __name__ == "__main__":
     #
     # gremlin_query_test = "graph.Vertex(\"panda\").Out(\"follows\").All()"
     # print cayley_util.query(gremlin_query_test)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
