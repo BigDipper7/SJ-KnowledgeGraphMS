@@ -9,5 +9,5 @@ install:
 
 # command to run tests
 script: nosetests
-  - nosetests
+  - test-all.py
   #- py.test test-all.py
