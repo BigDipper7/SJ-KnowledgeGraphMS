@@ -54,12 +54,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for index in range(0,data.rest_non_attrs|length) %}
+                {#{% for index in range(0,data.rest_non_attrs|length) %}
                 <tr>
-                  <th scope="row">{{ index }}</th>
-                  <td>{{ data.rest_non_attrs[index].subject }}</td>
-                  <td>{{ data.rest_non_attrs[index].predicate }}</td>
-                  <td>{{ data.rest_non_attrs[index].object }}</td>
+                    <th scope="row">{{ index }}</th>
+                    <td>{{ data.rest_non_attrs[index].subject }}</td>
+                    <td>{{ data.rest_non_attrs[index].predicate }}</td>
+                    <td>{{ data.rest_non_attrs[index].object }}</td>
+                </tr>
+                {% endfor %}#}
+                {% for item in data.rest_non_attrs %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ item.subject }}</td>
+                    <td>{{ item.predicate }}</td>
+                    <td>{{ item.object }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

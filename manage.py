@@ -253,6 +253,7 @@ def search():
         level = int(level)
         level = level if level <= 6 else 10
         if entity1 == "" or entity2 == "":
+            flash('test:Nothing in it')
             return render_template("home.html")
         else:
             cayley_util = CayleyUtil()
