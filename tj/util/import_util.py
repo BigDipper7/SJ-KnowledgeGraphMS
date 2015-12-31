@@ -9,6 +9,8 @@ from tj.db.util.cayley_util import CayleyUtil
 import xlrd
 import time
 
+import logging
+
 
 def import_excel(filename):
     cayley_util = CayleyUtil()
@@ -79,21 +81,33 @@ def import_excel_new_version(filename):
     if table:
         nrows = table.nrows
         ncols = table.ncols
-        if nrows > 1:
+        if nrows > CONST_OFFSET_HEADER_LEN:
             for i in range(CONST_OFFSET_HEADER_LEN, nrows):
                 subject = table.cell(i, 0).value.encode("utf-8")
                 if not subject:
+					#just get a critical log and record it
+					logging.warning("ImportError: subject in ({},0) in sheet 0 in {} is empty, checks it".format(i,filename))
                     continue
-                english = table.cell(i, 1).value.encode("utf-8")
+                
+				english = table.cell(i, 1).value.encode("utf-8")
                 if english:
                     cayley_util.insert_quads_triple(subject, '英文名', english)
-                description = table.cell(i, 2).value.encode("utf-8")
+                else:
+					#just get a useful log and record it
+					logging.info("Log: subject:{} doesn't has english name".format(subject.decode('utf-8')))
+				
+				description = table.cell(i, 2).value.encode("utf-8")
                 if description:
                     try:
                         cayley_util.insert_quads_triple(subject, 'attribute:解释', description)
                     except:
+						logging.error("Log: ImportError, except in description:{}".format(description))
                         pass
                     print subject, description
+				else:
+					#just get a useful log and record it
+					logging.info("Log: description is None in subject:{}".format(subject.decode('utf-8')))
+				
                 tongyi = table.cell(i, 3).value.encode("utf-8")
                 if tongyi:
                     tongyis = tongyi.split("/")
@@ -103,6 +117,7 @@ def import_excel_new_version(filename):
                             try:
                                 cayley_util.insert_quads_triple(word, 'attribute:解释', description)
                             except:
+								logging.error("Log: ImportError, except in tongyi:{} with description:{}".format(tongyi, description))
                                 pass
     #概念关系表
     table = data.sheet_by_index(1)
