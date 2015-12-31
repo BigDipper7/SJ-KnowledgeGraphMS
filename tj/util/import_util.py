@@ -61,3 +61,64 @@ def import_excel(filename):
                         cayley_util.insert_quads_triple(entity1, relation, entity2)
                     except:
                         pass
+
+
+
+
+def import_excel_new_version(filename):
+    #const variable to change header height
+    CONST_OFFSET_HEADER_LEN = 1
+
+    cayley_util = CayleyUtil()
+    data = xlrd.open_workbook(filename)
+    entities = []
+    entityMap = {}
+
+    #概念表
+    table = data.sheet_by_index(0)
+    if table:
+        nrows = table.nrows
+        ncols = table.ncols
+        if nrows > 1:
+            for i in range(CONST_OFFSET_HEADER_LEN, nrows):
+                subject = table.cell(i, 0).value.encode("utf-8")
+                if not subject:
+                    continue
+                english = table.cell(i, 1).value.encode("utf-8")
+                if english:
+                    cayley_util.insert_quads_triple(subject, '英文名', english)
+                description = table.cell(i, 2).value.encode("utf-8")
+                if description:
+                    try:
+                        cayley_util.insert_quads_triple(subject, 'attribute:解释', description)
+                    except:
+                        pass
+                    print subject, description
+                tongyi = table.cell(i, 3).value.encode("utf-8")
+                if tongyi:
+                    tongyis = tongyi.split("/")
+                    entityMap[subject] = tongyis
+                    for word in tongyis:
+                        if description:
+                            try:
+                                cayley_util.insert_quads_triple(word, 'attribute:解释', description)
+                            except:
+                                pass
+    #概念关系表
+    table = data.sheet_by_index(1)
+    if table:
+        nrows = table.nrows
+        ncols = table.ncols
+        if nrows > 1:
+            for i in range(CONST_OFFSET_HEADER_LEN, nrows):
+                entity1 = table.cell(i, 0).value.encode("utf-8")
+                relation = table.cell(i, 1).value.encode("utf-8")
+                entity2 = table.cell(i, 2).value.encode("utf-8")
+                relation = relation.replace("属性：", "attribute:")
+                entity2 = entity2.replace("。", "")
+                print entity2
+                if entity1 and relation and entity2:
+                    try:
+                        cayley_util.insert_quads_triple(entity1, relation, entity2)
+                    except:
+                        pass
