@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash, ses
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
 from tj.db.util.cayley_util import CayleyUtil
-from tj.util.import_util import import_excel
+from tj.util.import_util import import_excel_new_version
 from forms import AddRelationForm
 import json
 import threading
