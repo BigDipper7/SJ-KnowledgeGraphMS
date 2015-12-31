@@ -280,7 +280,7 @@ def excel_import():
         if file and allowed_file(file.filename):
             file_location = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(file_location)
-            t = threading.Thread(target=import_excel, args=(file_location,))
+            t = threading.Thread(target=import_excel_new_version, args=(file_location,))
             t.start()
             return redirect(url_for("control", status="上传成功！请等待一段时间！"))
         elif file and not allowed_file(file.filename):
