@@ -129,7 +129,7 @@ def import_excel_new_version(filename):
             for i in range(CONST_OFFSET_HEADER_LEN, nrows):
                 entity1 = table.cell(i, 0).value.encode("utf-8")
                 relation = table.cell(i, 1).value.encode("utf-8")
-                entity2 = table.cell(i, 2).value.encode("utf-8")
+                entity2 = str(table.cell(i, 2).value).encode("utf-8")
                 
                 #pre process of the strings
                 #if exists this string "属性：" "属性:", replace it with "attribute:"
