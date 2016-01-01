@@ -88,14 +88,14 @@ def import_excel_new_version(filename):
                     #just get a critical log and record it
                     logging.warning("ImportError: subject in ({},0) in sheet 0 in {} is empty, checks it".format(i,filename))
                     continue
-                
+
                 english = table.cell(i, 1).value.encode("utf-8")
                 if english:
                     cayley_util.insert_quads_triple(subject, '英文名', english)
                 else:
                     #just get a useful log and record it
                     logging.info("Log: subject:{} doesn't has english name".format(subject.decode('utf-8')))
-                
+
                 description = table.cell(i, 2).value.encode("utf-8")
                 if description:
                     try:
@@ -107,7 +107,7 @@ def import_excel_new_version(filename):
                 else:
                     #just get a useful log and record it
                     logging.info("Log: description is None in subject:{}".format(subject.decode('utf-8')))
-                
+
                 tongyi = table.cell(i, 3).value.encode("utf-8")
                 if tongyi:
                     tongyis = tongyi.split("/")
@@ -119,7 +119,8 @@ def import_excel_new_version(filename):
                             except:
                                 logging.error("Log: ImportError, except in tongyi:{} with description:{}".format(tongyi, description))
                                 pass
-    
+
+    #TODO： 仍然存在的问题是如何确定很多关系，就是比如说很多页同时存在的情况，同时mongodb还要加上一个词条，可以进行处理
     #概念关系表
     table = data.sheet_by_index(1)
     if table:
@@ -130,16 +131,16 @@ def import_excel_new_version(filename):
                 entity1 = table.cell(i, 0).value.encode("utf-8")
                 relation = table.cell(i, 1).value.encode("utf-8")
                 entity2 = str(table.cell(i, 2).value).encode("utf-8")
-                
+
                 #pre process of the strings
                 #if exists this string "属性：" "属性:", replace it with "attribute:"
                 relation = relation.replace("属性：", "attribute:")
                 relation = relation.replace("属性:", "attribute:")
-                
+
                 #i really seems not understand why we use this. replace "。"?
                 entity2 = entity2.replace("。", "")
                 print entity2.decode("utf-8")
-                
+
                 if entity1 and relation and entity2:
                     try:
                         cayley_util.insert_quads_triple(entity1, relation, entity2)
