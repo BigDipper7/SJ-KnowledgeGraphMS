@@ -145,7 +145,8 @@ def import_excel_new_version(filename):
                     logging.error("Log: '\\n' exists")
                 else:
                     logging.error("Nothing exists")
-                entity2 = entity2.replace("\n"," || ")
+                # entity2 = entity2.replace("\n"," || ")
+                entity2 = entity2.replace("\n","\\n")
                 print entity2.decode("utf-8")
 
                 if entity1 and relation and entity2:
