@@ -139,6 +139,12 @@ def import_excel_new_version(filename):
 
                 #i really seems not understand why we use this. replace "。"?
                 entity2 = entity2.replace("。", "")
+                if '\r\n' in entity2:
+                    logging.log("Log: \r\n exists")
+                elif '\n' in entity2:
+                    logging.log("Log: \n exists")
+                else:
+                    logging.log("Nothing exists")
                 entity2 = entity2.replace("\n"," || ")
                 print entity2.decode("utf-8")
 
