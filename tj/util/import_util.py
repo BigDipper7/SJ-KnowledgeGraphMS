@@ -139,6 +139,7 @@ def import_excel_new_version(filename):
 
                 #i really seems not understand why we use this. replace "。"?
                 entity2 = entity2.replace("。", "")
+                entity2 = entity2.replace("\n"," || ")
                 print entity2.decode("utf-8")
 
                 if entity1 and relation and entity2:
