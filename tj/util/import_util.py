@@ -146,6 +146,7 @@ def import_excel_new_version(filename):
                         cayley_util.insert_quads_triple(entity1, relation, entity2)
                     except:
                         logging.error("Log: ImportError - Exception occurs in here Sheet 2 line id:<{}> with traid:<{},{},{}>".format(i, entity1, relation, entity2))
+                        logging.error("Error: Exception occurs in sheet 2 line_id {}  with Exception:{}".format(i, sys.exc_info()[0]))
                         pass
                 else:
                     logging.error("Something Error In Sheet 2 line id:<{}> with traid:<{},{},{}>".format(i, entity1, relation, entity2))
