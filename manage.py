@@ -24,9 +24,12 @@ manager = Manager(app)
 
 @app.before_request
 def make_session_permanent():
-    app.logger.info("@app.before_request invoke, refresh session expire time")
+    '''setting for session expire span, now we set it to 3min
+    '''
+    # app.logger.info("@app.before_request invoke, refresh session expire time")
+    expire_span = 10#3 minutes
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=1)
+    app.permanent_session_lifetime = timedelta(seconds=expire_span)
 
 
 def check_is_login(func):
