@@ -24,7 +24,7 @@ manager = Manager(app)
 
 @app.before_request
 def make_session_permanent():
-    app.logging.info("@app.before_request invoke, refresh session expire time")
+    app.logger.info("@app.before_request invoke, refresh session expire time")
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=1)
 
@@ -52,12 +52,15 @@ def login():
     elif request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        app.logger.info('IMPORT: Attemp login... with username:{} password:{}'.format(username, password))
+
         if not username and not password:
             flash('Field can not be blank! Try again.')
             return redirect(url_for('login'))
         elif username == "admin" and password == 'nicai':
             session[is_login] = True
             flash('Login Success~')
+            app.logger.info('login success')
             return redirect(url_for('home'))
         else:
             flash('Wrong username or password! Try again.')
