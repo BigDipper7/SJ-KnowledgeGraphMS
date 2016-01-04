@@ -13,6 +13,7 @@ import os
 import functools
 import inspect
 from datetime import timedelta
+import traceback
 
 is_login = str('is_login')
 
@@ -112,7 +113,10 @@ def control_relation_delete():
 
     if subject and object and predicate:
         cayley_util = CayleyUtil()
-        result = cayley_util.delete_quads_triple(subject, predicate, object)
+        try:
+            result = cayley_util.delete_quads_triple(subject, predicate, object)
+        except Exception as e:
+            app.logger.error(traceback.format_exc())
     return json.dumps({"result": result})
 
 
