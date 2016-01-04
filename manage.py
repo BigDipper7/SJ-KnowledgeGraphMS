@@ -104,9 +104,12 @@ def control():
 
 @app.route('/sjkg/control/relation/delete', methods=['GET'])
 def control_relation_delete():
-    subject = request.args.get("subject").encode("utf-8")
-    object = request.args.get("object").encode("utf-8")
-    predicate = request.args.get("predicate").encode("utf-8")
+    # subject = request.args.get("subject").encode("utf-8")
+    # object = request.args.get("object").encode("utf-8")
+    # predicate = request.args.get("predicate").encode("utf-8")
+    subject = request.json["subject"].encode("utf-8")
+    object = request.json["object"].encode("utf-8")
+    predicate = request.json["predicate"].encode("utf-8")
     print subject, object, predicate
 
     result = False
