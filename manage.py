@@ -102,7 +102,7 @@ def control():
                            add_relation_form=add_relation_form, status=request.args.get("status"))
 
 
-@app.route('/sjkg/control/relation/delete', methods=['GET'])
+@app.route('/sjkg/control/relation/delete', methods=['POST'])
 def control_relation_delete():
     # subject = request.args.get("subject").encode("utf-8")
     # object = request.args.get("object").encode("utf-8")
