@@ -190,58 +190,58 @@
         });
 
         $('#triples tbody').on('click', 'tr', function () {
-                if ($(this).hasClass('selected_delete')) {
-                    $(this).removeClass('selected_delete');
-                }
-                else {
-                    $('#triples').DataTable().$('tr.selected_delete').removeClass('selected_delete');
-                    $(this).addClass('selected_delete');
-                }
-            });
+            if ($(this).hasClass('selected_delete')) {
+                $(this).removeClass('selected_delete');
+            }
+            else {
+                $('#triples').DataTable().$('tr.selected_delete').removeClass('selected_delete');
+                $(this).addClass('selected_delete');
+            }
+        });
 
-            $('.delete_triple').on("click", function() {
-                var itemNodesParent = $(this)[0].parentNode.parentNode;
-                var itemNodes = itemNodesParent.childNodes;
-                var temp_subject = itemNodes[1].innerHTML;
-                var temp_predicate = itemNodes[3].innerHTML;
-                var temp_object = itemNodes[5].innerHTML;
-                var confirm_content = "确定要删除关系(" + temp_subject + ", " + temp_predicate + ", " + temp_object + ")么？";
-                var postData = 'subject=' + temp_subject + '&predicate=' + temp_predicate + '&object=' + temp_object;
-                if (confirm(confirm_content) == true) {
-                    $.ajax({
-                        type: 'GET',
-                        url: "/sjkg/control/relation/delete",
-                        data: postData,
-                        crossDomain: true,
-                        success: function(data) {
-                            $('#triples').DataTable().row('.selected_delete').remove().draw(false);
-                        },
-                        dataType: "json"
-                    });
-                }
-            });
+        $('.delete_triple').on("click", function() {
+            var itemNodesParent = $(this)[0].parentNode.parentNode;
+            var itemNodes = itemNodesParent.childNodes;
+            var temp_subject = itemNodes[1].innerHTML;
+            var temp_predicate = itemNodes[3].innerHTML;
+            var temp_object = itemNodes[5].innerHTML;
+            var confirm_content = "确定要删除关系(" + temp_subject + ", " + temp_predicate + ", " + temp_object + ")么？";
+            var postData = 'subject=' + temp_subject + '&predicate=' + temp_predicate + '&object=' + temp_object;
+            if (confirm(confirm_content) == true) {
+                $.ajax({
+                    type: 'GET',
+                    url: "/sjkg/control/relation/delete",
+                    data: postData,
+                    crossDomain: true,
+                    success: function(data) {
+                        $('#triples').DataTable().row('.selected_delete').remove().draw(false);
+                    },
+                    dataType: "json"
+                });
+            }
+        });
 
-            $('.show_triple').on("click", function() {
-                var itemNodes = $(this)[0].parentNode.parentNode.childNodes;
-                var alert_content = "(" + itemNodes[1].innerHTML + ", " + itemNodes[3].innerHTML + ", " + itemNodes[5].innerHTML + ")";
-                alert(alert_content);
-            });
+        $('.show_triple').on("click", function() {
+            var itemNodes = $(this)[0].parentNode.parentNode.childNodes;
+            var alert_content = "(" + itemNodes[1].innerHTML + ", " + itemNodes[3].innerHTML + ", " + itemNodes[5].innerHTML + ")";
+            alert(alert_content);
+        });
 
-            $('.edit_triple').on("click", function() {
-                var itemNodes = $(this)[0].parentNode.parentNode.childNodes;
-                var relation_subject = document.getElementById("relation_subject");
-                var relation_predicate = document.getElementById("relation_predicate");
-                var relation_object = document.getElementById("relation_object");
-                relation_subject.value = itemNodes[1].innerHTML;
-                relation_predicate.value = itemNodes[3].innerHTML;
-                relation_object.value = itemNodes[5].innerHTML;
+        $('.edit_triple').on("click", function() {
+            var itemNodes = $(this)[0].parentNode.parentNode.childNodes;
+            var relation_subject = document.getElementById("relation_subject");
+            var relation_predicate = document.getElementById("relation_predicate");
+            var relation_object = document.getElementById("relation_object");
+            relation_subject.value = itemNodes[1].innerHTML;
+            relation_predicate.value = itemNodes[3].innerHTML;
+            relation_object.value = itemNodes[5].innerHTML;
 
-                delete_subject = itemNodes[1].innerHTML;
-                delete_predicate = itemNodes[3].innerHTML;
-                delete_object = itemNodes[5].innerHTML;
+            delete_subject = itemNodes[1].innerHTML;
+            delete_predicate = itemNodes[3].innerHTML;
+            delete_object = itemNodes[5].innerHTML;
 
-                $("#myRelationModalEdit").modal('show');
-            });
+            $("#myRelationModalEdit").modal('show');
+        });
 
         function edit_submit() {
             var postData = 'subject=' + delete_subject + '&predicate=' + delete_predicate + '&object=' + delete_object;
@@ -260,5 +260,3 @@
         }
     </script>
 {% endblock %}
-
-
