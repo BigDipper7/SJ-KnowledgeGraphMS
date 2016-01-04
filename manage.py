@@ -12,6 +12,7 @@ import os
 
 import functools
 import inspect
+from datetime import timedelta
 
 is_login = str('is_login')
 
@@ -20,6 +21,12 @@ app.config['SECRET_KEY'] = 'jiu bu gao su ni'
 app.config['UPLOAD_FOLDER'] = './'
 bootstrap = Bootstrap(app)
 manager = Manager(app)
+
+@app.before_request
+def make_session_permanent():
+    app.logging.info("@app.before_request invoke, refresh session expire time")
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=1)
 
 
 def check_is_login(func):
