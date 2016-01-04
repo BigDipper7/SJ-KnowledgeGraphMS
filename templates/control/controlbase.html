@@ -215,7 +215,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url_for('delete') }}",
+                    url: "{{ url_for('control_relation_delete') }}",
                     data: JSON.stringify(data, null, '\t'),
                     contentType: 'application/json;charset=UTF-8'
                     crossDomain: true,
