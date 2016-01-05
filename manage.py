@@ -73,7 +73,7 @@ def login():
             flash('Login Success~')
             app.logger.info('login success')
             # return redirect(url_for('home'))
-            return redirect(next if next_url else url_for('home'))
+            return redirect(next_url if next_url else url_for('home'))
         else:
             flash('Wrong username or password! Try again.')
             return redirect(url_for('login', next = next_url if next_url else None))
