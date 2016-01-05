@@ -92,7 +92,7 @@ def card():
 
 
 @app.route('/sjkg/control', methods=['GET', 'POST'])
-@check_is_login(next_url = ‘/sjkg/control’)
+@check_is_login(next_url = '/sjkg/control')
 def control():
     add_relation_form = AddRelationForm()
     cayley_util = CayleyUtil()
