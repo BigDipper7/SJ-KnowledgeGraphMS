@@ -28,7 +28,7 @@ def make_session_permanent():
     '''setting for session expire span, now we set it to 3min
     '''
     # app.logger.info("@app.before_request invoke, refresh session expire time")
-    expire_span = 3#3 minutes
+    expire_span = 5#5 minutes
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=expire_span)
 
@@ -63,15 +63,15 @@ def login():
         next_url = request.args.get('next')
         app.logger.info('login module: next_url is {}'.format(next_url))
 
-        app.logger.info('root_url is {}\n and script_root is {}\n url_for is {}'.format(request.url_root, request.script_root, url_for('login')))
+        # app.logger.info('root_url is {}\n and script_root is {}\n url_for is {}'.format(request.url_root, request.script_root, url_for('login')))
 
         if not username and not password:
             flash('Field can not be blank! Try again.')
             return redirect(url_for('login', next = next_url if next_url else None))
         elif username == "admin" and password == 'nicai':
             session[is_login] = True
-            flash('Login Success~')
-            app.logger.info('login success')
+            flash('Login Success~  Welcome back !')
+            app.logger.info('login success, redirect to {}'.format(next_url))
             # return redirect(url_for('home'))
             return redirect(next_url if next_url else url_for('home'))
         else:
@@ -111,6 +111,7 @@ def control():
 
 
 @app.route('/sjkg/control/relation/delete', methods=['POST'])
+@check_is_login(next_url = '/sjkg/control')
 def control_relation_delete():
     # subject = request.args.get("subject").encode("utf-8")
     # object = request.args.get("object").encode("utf-8")
@@ -247,6 +248,7 @@ def _print_rlts_odata(rlts_origin_data):
     return
 
 @app.route('/sjkg/submitCard', methods=['POST', 'GET'])
+@check_is_login(next_url = '/sjkg/submitCard')
 def submitCard():
     '''submitCard calling by the form post action happened in /sjkg/card
     '''
@@ -302,6 +304,7 @@ def allowed_file(filename):
 
 
 @app.route('/sjkg/excel_import', methods=['POST'])
+@check_is_login(next_url = '/sjkg/control')
 def excel_import():
     if request.method == 'POST':
         file = request.files['file']
@@ -317,6 +320,7 @@ def excel_import():
 
 
 @app.route('/sjkg/upload_pic', methods=['POST'])
+@check_is_login(next_url = '/sjkg/control')
 def upload_pic():
     if request.method == 'POST':
         file = request.files['file']
@@ -330,6 +334,7 @@ def upload_pic():
 
 
 @app.route('/sjkg/upload_vid', methods=['POST'])
+@check_is_login(next_url = '/sjkg/control')
 def upload_vid():
     if request.method == 'POST':
         file = request.files['file']
