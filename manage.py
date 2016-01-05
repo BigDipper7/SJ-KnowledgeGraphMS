@@ -45,7 +45,7 @@ def check_is_login(next_url = None):
             if not session.get(is_login):
                 flash('Plz login first')
                 app.logger.error('must login first')
-                return redirect(url_for('login', next=next_url if not next_url))
+                return redirect(url_for('login', next=next_url if not next_url else None))
             return func(*args, **kwargs)
         return wrapper
     return check_is_login_decorator
