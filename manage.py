@@ -33,20 +33,22 @@ def make_session_permanent():
     app.permanent_session_lifetime = timedelta(minutes=expire_span)
 
 
-def check_is_login(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        # func_args = inspect.getcallargs(func, *args, **kwargs)
-        # print func_args
-        # if func_args.get('username') != 'admin':
-        #     raise Exception('permission denied')
-        app.logger.debug('check_is_login')
-        if not session.get(is_login):
-            flash('Plz login first')
-            app.logger.error('must login first')
-            return redirect(url_for('login'))
-        return func(*args, **kwargs)
-    return wrapper
+def check_is_login(next = None):
+    def check_is_login_decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            # func_args = inspect.getcallargs(func, *args, **kwargs)
+            # print func_args
+            # if func_args.get('username') != 'admin':
+            #     raise Exception('permission denied')
+            app.logger.debug('check_is_login')
+            if not session.get(is_login):
+                flash('Plz login first')
+                app.logger.error('must login first')
+                return redirect(url_for('login', next = next if not next))
+            return func(*args, **kwargs)
+        return wrapper
+    return check_is_login_decorator
 
 
 @app.route('/sjkg/login', methods=['GET','POST'])
@@ -58,17 +60,21 @@ def login():
         password = request.form['password']
         app.logger.info('IMPORT: Attemp login... with username:{} password:{}'.format(username, password))
 
+        next = request.args.get('next')
+        app.logger.info('login module: next_url is {}'.format(next))
+
         if not username and not password:
             flash('Field can not be blank! Try again.')
-            return redirect(url_for('login'))
+            return redirect(url_for('login', next = next if not next))
         elif username == "admin" and password == 'nicai':
             session[is_login] = True
             flash('Login Success~')
             app.logger.info('login success')
-            return redirect(url_for('home'))
+            # return redirect(url_for('home'))
+            return redirect(next if not next else url_for('home'))
         else:
             flash('Wrong username or password! Try again.')
-            return redirect(url_for('login'))
+            return redirect(url_for('login', next = next if not next))
 
 
 @app.route('/sjkg/logout', methods=['GET'])
@@ -86,7 +92,7 @@ def card():
 
 
 @app.route('/sjkg/control', methods=['GET', 'POST'])
-@check_is_login
+@check_is_login(next = url_for('control'))
 def control():
     add_relation_form = AddRelationForm()
     cayley_util = CayleyUtil()
