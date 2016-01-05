@@ -63,7 +63,7 @@ def login():
         next_url = request.args.get('next')
         app.logger.info('login module: next_url is {}'.format(next_url))
 
-        app.logger.info('root_url is {}\n and script_root is {}\n'.format(request.url_root, request.script_root))
+        app.logger.info('root_url is {}\n and script_root is {}\n url_for is {}'.format(request.url_root, request.script_root, url_for('login')))
 
         if not username and not password:
             flash('Field can not be blank! Try again.')
