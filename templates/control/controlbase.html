@@ -206,7 +206,7 @@
             var temp_predicate = itemNodes[3].innerHTML;
             var temp_object = itemNodes[5].innerHTML;
             var confirm_content = "确定要删除关系(" + temp_subject + ", " + temp_predicate + ", " + temp_object + ")么？";
-            var postData = 'subject=' + temp_subject + '&predicate=' + temp_predicate + '&object=' + temp_object;
+            // var postData = 'subject=' + temp_subject + '&predicate=' + temp_predicate + '&object=' + temp_object;
             if (confirm(confirm_content) == true) {
                 data = {};
                 data['subject'] = temp_subject;
