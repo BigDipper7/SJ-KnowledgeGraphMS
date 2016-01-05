@@ -60,7 +60,7 @@ def login():
         password = request.form['password']
         app.logger.info('IMPORT: Attemp login... with username:{} password:{}'.format(username, password))
 
-        next_url = request.args.get('next')
+        next_url = request.args.get('next').encode('utf-8')
         app.logger.info('login module: next_url is {}'.format(next_url))
 
         if not username and not password:
