@@ -64,3 +64,4 @@ pic/
 .svn
 nohup.*
 *.xls
+*.xlsx
