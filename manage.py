@@ -19,7 +19,7 @@ is_login = str('is_login')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jiu bu gao su ni'
-app.config['UPLOAD_FOLDER'] = './'
+app.config['UPLOAD_FOLDER'] = './FileUpload'
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 
