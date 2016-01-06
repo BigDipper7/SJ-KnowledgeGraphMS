@@ -14,6 +14,7 @@ import functools
 import inspect
 from datetime import timedelta
 import traceback
+from tj.util.file.file_util import create_file_with_time
 
 is_login = str('is_login')
 
@@ -309,7 +310,9 @@ def excel_import():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
-            file_location = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            # file_location = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file_location = create_file_with_time(app.config['UPLOAD_FOLDER'], file.filename)
+
             file.save(file_location)
             t = threading.Thread(target=import_excel_new_version, args=(file_location,))
             t.start()
