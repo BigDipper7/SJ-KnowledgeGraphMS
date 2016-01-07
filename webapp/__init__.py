@@ -14,6 +14,7 @@ app.config['UPLOAD_FOLDER'] = './FileUpload'
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 
+# seems circular import
 import webapp.views.views
 
 #
