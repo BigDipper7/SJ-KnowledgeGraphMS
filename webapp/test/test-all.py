@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from tj.util.file.file_util import create_file_with_time, _create_dir_with_time
+from businesslogic.util.file.file_util import create_file_with_time, _create_dir_with_time
 
 def funct(a):
     return a+1
