@@ -91,6 +91,7 @@ def import_excel_new_version(filename):
                     continue
 
                 english = table.cell(i, 1).value.encode("utf-8")
+                english = english.replace('\n','\\n')
                 if english:
                     try:
                         cayley_util.insert_quads_triple(subject, '英文名', english)
@@ -123,6 +124,7 @@ def import_excel_new_version(filename):
                         if description:
                             try:
                                 cayley_util.insert_quads_triple(word, 'attribute:解释', description)
+                                app.logger.info("[Success] : insert Success with traid <{};\n{};\n{};>".format(word.decode('utf-8'), 'attribute:解释', description.decode('utf-8')))
                             except:
                                 app.logger.error("[Log] : ImportError, except in tongyi:{} with description:{}".format(tongyi.decode('utf-8'), description.decode('utf-8')))
                                 raise
