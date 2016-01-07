@@ -1,6 +1,6 @@
+#encoding: utf-8
 __author__ = 'BigDipper7'
 
-# -*- encoding: utf-8 -*-
 
 from flask import Flask
 from flask.ext.script import Manager
