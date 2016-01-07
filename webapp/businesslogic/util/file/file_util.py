@@ -3,6 +3,7 @@
 
 import os, datetime
 import logging
+from webapp import app
 
 def create_file_with_time(root_path, file_name):
     if not root_path or not file_name:
@@ -16,7 +17,7 @@ def create_file_with_time(root_path, file_name):
 
     final_dir = os.path.join(final_dir, file_name)
 
-    logging.info("[file_util]: success get file dir: \n' {} '".format(final_dir))
+    app.logger.info("[file_util]: success get file dir: \n' {} '".format(final_dir))
 
     return final_dir
 
@@ -37,6 +38,6 @@ def _create_dir_with_time(root_path):
     # with open(os.path.join(mydir, filename), 'w') as d:
     #     d.writelines(list)
 
-    logging.info("[file_util]: success get folder dir with timestamp: \n' {} '".format(final_dir))
+    app.logger.info("[file_util]: success get folder dir with timestamp: \n' {} '".format(final_dir))
 
     return final_dir

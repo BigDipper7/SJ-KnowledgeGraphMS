@@ -8,6 +8,7 @@ sys.setdefaultencoding("utf-8")
 import urllib2
 import json
 import logging
+from webapp import app
 
 # 利用RESTful API的Cayley工具类
 class CayleyUtil(object):
@@ -60,7 +61,7 @@ class CayleyUtil(object):
         }]""" % (temp_subject, temp_predicate, temp_object)
 
     	# just for logging and for record
-    	logging.info("Log: Insert - Ready to insert succeed, triad:< {}, {}, {} >".format(temp_subject.decode("utf-8"), temp_predicate.decode("utf-8"), temp_object.decode("utf-8")))
+    	app.logger.info("Log: Insert - Ready to insert succeed, triad:< {}, {}, {} >".format(temp_subject.decode("utf-8"), temp_predicate.decode("utf-8"), temp_object.decode("utf-8")))
 
         return self.insert_quads(insert_json)
 

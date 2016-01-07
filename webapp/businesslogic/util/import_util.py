@@ -10,6 +10,7 @@ import xlrd
 import time
 
 import logging
+from webapp import app
 
 
 def import_excel(filename):
@@ -86,7 +87,7 @@ def import_excel_new_version(filename):
                 subject = table.cell(i, 0).value.encode("utf-8")
                 if not subject:
                     #just get a critical log and record it
-                    logging.warning("ImportError: subject in ({},0) in sheet 0 in {} is empty, checks it".format(i,filename))
+                    app.logger.warning("ImportError: subject in ({},0) in sheet 0 in {} is empty, checks it".format(i,filename))
                     continue
 
                 english = table.cell(i, 1).value.encode("utf-8")
@@ -94,19 +95,19 @@ def import_excel_new_version(filename):
                     cayley_util.insert_quads_triple(subject, '英文名', english)
                 else:
                     #just get a useful log and record it
-                    logging.info("Log: subject:{} doesn't has english name".format(subject.decode('utf-8')))
+                    app.logger.info("Log: subject:{} doesn't has english name".format(subject.decode('utf-8')))
 
                 description = table.cell(i, 2).value.encode("utf-8")
                 if description:
                     try:
                         cayley_util.insert_quads_triple(subject, 'attribute:解释', description)
                     except:
-                        logging.error("Log: ImportError, except in description:{}".format(description))
+                        app.logger.error("Log: ImportError, except in description:{}".format(description))
                         pass
                     print subject, description
                 else:
                     #just get a useful log and record it
-                    logging.info("Log: description is None in subject:{}".format(subject.decode('utf-8')))
+                    app.logger.info("Log: description is None in subject:{}".format(subject.decode('utf-8')))
 
                 tongyi = table.cell(i, 3).value.encode("utf-8")
                 if tongyi:
@@ -117,7 +118,7 @@ def import_excel_new_version(filename):
                             try:
                                 cayley_util.insert_quads_triple(word, 'attribute:解释', description)
                             except:
-                                logging.error("Log: ImportError, except in tongyi:{} with description:{}".format(tongyi, description))
+                                app.logger.error("Log: ImportError, except in tongyi:{} with description:{}".format(tongyi, description))
                                 pass
 
     #TODO： 仍然存在的问题是如何确定很多关系，就是比如说很多页同时存在的情况，同时mongodb还要加上一个词条，可以进行处理
@@ -140,11 +141,11 @@ def import_excel_new_version(filename):
                 #i really seems not understand why we use this. replace "。"?
                 entity2 = entity2.replace("。", "")
                 if '\r\n' in entity2:
-                    logging.error("Log: '\\r\\n' exists")
+                    app.logger.error("Log: '\\r\\n' exists")
                 elif '\n' in entity2:
-                    logging.error("Log: '\\n' exists")
+                    app.logger.error("Log: '\\n' exists")
                 else:
-                    logging.error("Nothing exists")
+                    app.logger.error("Nothing exists")
                 # entity2 = entity2.replace("\n"," || ")
                 entity2 = entity2.replace("\n","\\n")
                 print entity2.decode("utf-8")
@@ -153,8 +154,8 @@ def import_excel_new_version(filename):
                     try:
                         cayley_util.insert_quads_triple(entity1, relation, entity2)
                     except:
-                        logging.error("Log: ImportError - Exception occurs in here Sheet 2 line id:<{}> with traid:<{},{},{}>".format(i, entity1, relation, entity2))
-                        logging.error("Error: Exception occurs in sheet 2 line_id {}  with Exception:{}".format(i, sys.exc_info()[0]))
+                        app.logger.error("Log: ImportError - Exception occurs in here Sheet 2 line id:<{}> with traid:<{},{},{}>".format(i, entity1, relation, entity2))
+                        app.logger.error("Error: Exception occurs in sheet 2 line_id {}  with Exception:{}".format(i, sys.exc_info()[0]))
                         pass
                 else:
-                    logging.error("Something Error In Sheet 2 line id:<{}> with traid:<{},{},{}>".format(i, entity1, relation, entity2))
+                    app.logger.error("Something Error In Sheet 2 line id:<{}> with traid:<{},{},{}>".format(i, entity1, relation, entity2))
