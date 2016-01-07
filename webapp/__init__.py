@@ -18,7 +18,7 @@ bootstrap = Bootstrap(app)
 manager = Manager(app)
 
 # seems circular import
-import webapp.views.views
+#import webapp.views.views
 
 #
 # #----------------------------------------
