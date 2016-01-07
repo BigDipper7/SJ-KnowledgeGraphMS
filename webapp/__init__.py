@@ -10,7 +10,7 @@ from flask.ext.bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jiu bu gao su ni'
-app.config['UPLOAD_FOLDER'] = './FileUpload'
+app.config['UPLOAD_FOLDER'] = './webapp/FileUpload'
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 
