@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from webapp import app
 
 from flask import Flask, render_template, redirect, url_for, request, flash, session
-from flask.ext.script import Manager
-from flask.ext.bootstrap import Bootstrap
-from tj.db.util.cayley_util import CayleyUtil
-from tj.util.import_util import import_excel_new_version
+# from flask.ext.script import Manager
+# from flask.ext.bootstrap import Bootstrap
+from webapp.businesslogic.db.util.cayley_util import CayleyUtil
+from webapp.businesslogic.util.import_util import import_excel_new_version
 from forms import AddRelationForm
 import json
 import threading
@@ -19,11 +20,11 @@ from tj.util.file.file_util import create_file_with_time
 
 is_login = str('is_login')
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'jiu bu gao su ni'
-app.config['UPLOAD_FOLDER'] = './FileUpload'
-bootstrap = Bootstrap(app)
-manager = Manager(app)
+# app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'jiu bu gao su ni'
+# app.config['UPLOAD_FOLDER'] = './FileUpload'
+# bootstrap = Bootstrap(app)
+# manager = Manager(app)
 
 @app.before_request
 def make_session_permanent():

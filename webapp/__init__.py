@@ -6,7 +6,7 @@ from flask import Flask
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
 
-is_login = str('is_login')
+# is_login = str('is_login')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jiu bu gao su ni'
