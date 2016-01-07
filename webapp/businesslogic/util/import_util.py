@@ -148,7 +148,7 @@ def import_excel_new_version(filename):
                 relation = relation.replace("属性:", "attribute:")
 
                 #i really seems not understand why we use this. replace "。"?
-                entity2 = entity2.replace("。", "")
+                # entity2 = entity2.replace("。", "")
                 if '\r\n' in entity2:
                     app.logger.info("[Log] : '\\r\\n' exists")
                 elif '\n' in entity2:
