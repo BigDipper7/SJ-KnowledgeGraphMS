@@ -14,6 +14,8 @@ app.config['UPLOAD_FOLDER'] = './FileUpload'
 bootstrap = Bootstrap(app)
 manager = Manager(app)
 
+import webapp.views.views
+
 #
 # #----------------------------------------
 # # main func snippet
