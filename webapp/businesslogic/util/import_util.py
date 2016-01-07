@@ -5,7 +5,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-from tj.db.util.cayley_util import CayleyUtil
+from businesslogic.db.util.cayley_util import CayleyUtil
 import xlrd
 import time
 
