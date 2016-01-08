@@ -53,7 +53,7 @@ class CayleyUtil(object):
         return False if data.get("error", None) else True
 
     def insert_quads_triple(self, temp_subject, temp_predicate, temp_object):
-        insert_json = """
+        insert_json = r"""
         [{
             "subject": \"%s\",
             "predicate": \"%s\",
@@ -72,7 +72,7 @@ class CayleyUtil(object):
         return False if data.get("error", None) else True
 
     def delete_quads_triple(self, temp_subject, temp_predicate, temp_object):
-        delete_json = """
+        delete_json = r"""
         [{
             "subject": \"%s\",
             "predicate": \"%s\",

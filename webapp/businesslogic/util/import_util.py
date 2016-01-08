@@ -172,3 +172,10 @@ def import_excel_new_version(filename):
                         raise
                 else:
                     app.logger.error("Something Error In --- Sheet 1 line id: {} --- :\n\twith traid:<{},{},{}>\nMay exists None Type data! Forbbiden".format(i, entity1, relation, entity2))
+
+def str_pre_process(*args, **kwargs):
+    result = []
+    for arg in args:
+        arg = arg.replace('\n','\\n')
+        result.append(arg)
+    return result
