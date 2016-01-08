@@ -90,7 +90,7 @@ def import_excel_new_version(filename):
                     app.logger.warning("[ImportError] : subject in cell({},0) in sheet 0 in file: \n-- {} is empty, checks it".format(i,filename))
                     continue
 
-                english = table.cell(i, 1).value.encode("utf-8")
+                english = table.cell(i, 1).value.encode('string-escape').encode("utf-8")
                 english = english.replace('\n','\\n')
                 if english:
                     try:
