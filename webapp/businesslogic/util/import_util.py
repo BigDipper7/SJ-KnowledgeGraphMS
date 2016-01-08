@@ -99,7 +99,7 @@ def import_excel_new_version(filename):
 
                 # english = english.replace('\n','\\n')
 
-                # subject, english, description = _str_pre_process(subject, english, description)
+                subject, english, description = _str_pre_process(subject, english, description)
                 if english:
                     try:
                         cayley_util.insert_quads_triple(subject, '英文名', english)
@@ -124,10 +124,13 @@ def import_excel_new_version(filename):
                     app.logger.warning("[ImportError] : description is None in subject:{}".format(subject.decode('utf-8')))
 
                 tongyi = table.cell(i, 3).value.encode("utf-8")
+                tongyi = _str_pre_process(tongyi)
                 if tongyi:
                     tongyis = tongyi.split("/")
                     entityMap[subject] = tongyis
                     for word in tongyis:
+
+                        # add subject relation description
                         if description:
                             try:
                                 cayley_util.insert_quads_triple(word, 'attribute:解释', description)
@@ -158,16 +161,19 @@ def import_excel_new_version(filename):
 
                 #i really seems not understand why we use this. replace "。"?
                 # entity2 = entity2.replace("。", "")
-                if '\r\n' in entity2:
-                    app.logger.info("[Log] : '\\r\\n' exists")
-                elif '\n' in entity2:
-                    app.logger.info("[Log] : '\\n' exists")
-                else:
-                    app.logger.info("[Log] : Nothing exists")
-                # entity2 = entity2.replace("\n"," || ")
-                entity2 = entity2.replace("\n","\\n")
+                # if '\r\n' in entity2:
+                #     app.logger.info("[Log] : '\\r\\n' exists")
+                # elif '\n' in entity2:
+                #     app.logger.info("[Log] : '\\n' exists")
+                # else:
+                #     app.logger.info("[Log] : Nothing exists")
+                # # entity2 = entity2.replace("\n"," || ")
+                # entity2 = entity2.replace("\n","\\n")
                 # print entity2.decode("utf-8")
 
+                #just do the pre-process
+                entity1, relation, entity2 = _str_pre_process(entity1, relation, entity2)
+                
                 app.logger.info("[Log] : traid after process in --- sheet 1, line id: {} --- :\n\t< {}; {}; {} >".format(i, entity1, relation, entity2))
 
                 if entity1 and relation and entity2:
