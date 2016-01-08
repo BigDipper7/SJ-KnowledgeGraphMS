@@ -90,8 +90,8 @@ def import_excel_new_version(filename):
                     app.logger.warning("[ImportError] : subject in cell({},0) in sheet 0 in file: \n-- {} is empty, checks it".format(i,filename))
                     continue
 
-                english = table.cell(i, 1).value.encode('string-escape').encode("utf-8")
-                english = english.replace('\n','\\n')
+                english = str(table.cell(i, 1).value).encode('string-escape').encode("utf-8")
+                # english = english.replace('\n','\\n')
                 if english:
                     try:
                         cayley_util.insert_quads_triple(subject, '英文名', english)
