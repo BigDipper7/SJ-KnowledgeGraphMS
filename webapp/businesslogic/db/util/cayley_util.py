@@ -62,9 +62,9 @@ class CayleyUtil(object):
 
         insert_json = r'''
         [{
-            "subject": "{0}",
-            "predicate": "{1}",
-            "object": "{2}"
+            subject: "{0}",
+            predicate: "{1}",
+            object: "{2}"
         }]'''.format(temp_subject.encode('string-escape'), temp_predicate.encode('string-escape'), temp_object.encode('string-escape'))
 
     	# just for logging and for record
