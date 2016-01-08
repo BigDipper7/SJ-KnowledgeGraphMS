@@ -92,9 +92,9 @@ def import_excel_new_version(filename):
 
                 english = table.cell(i, 1).value
                 print 'raw english is', english
-                english.encode("utf-8")
+                english = english.encode("utf-8")
                 print 'encode with utf-8', english
-                english.encode('string-escape')
+                english = english.encode('string-escape')
                 print 'encode with string-escape', english
 
                 # english = english.replace('\n','\\n')
