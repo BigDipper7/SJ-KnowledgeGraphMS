@@ -3,6 +3,7 @@
 
 import pytest
 from webapp.businesslogic.util.file.file_util import create_file_with_time, _create_dir_with_time
+from webapp.businesslogic.util.import_util import _str_pre_process
 
 def funct(a):
     return a+1
@@ -22,3 +23,14 @@ def test_file_util_funcs():
 
     print "final_dir:{}".format(final_dir)
     print "temp_dir:{}".format(temp_dir)
+
+def test_import_util():
+    a = r'foofoofoo\nfoofoo'
+    b = r'foofoofoo\\nfoofoo'
+    g = _str_pre_process(a)
+    assert b == g
+
+    c = r'foo\n\nfooofoobar'
+    d = r'foo\\n\\nfooofoobar'
+    e,f = _str_pre_process(a,c)
+    assert e==b and f==d

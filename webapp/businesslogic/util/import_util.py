@@ -89,15 +89,17 @@ def import_excel_new_version(filename):
                     #just get a critical log and record it
                     app.logger.warning("[ImportError] : subject in cell({},0) in sheet 0 in file: \n-- {} is empty, checks it".format(i,filename))
                     continue
-
-                english = table.cell(i, 1).value
-                print 'raw english is', english
-                english = english.encode("utf-8")
-                print 'encode with utf-8', english
-                english = english.encode('string-escape')
-                print 'encode with string-escape', english
+                english = table.cell(i, 1).value.encode("utf-8")
+                description = table.cell(i, 2).value.encode("utf-8")
+                # print 'raw english is', english
+                # english = english.encode("utf-8")
+                # print 'encode with utf-8', english
+                # english = english.encode('string-escape')
+                # print 'encode with string-escape', english
 
                 # english = english.replace('\n','\\n')
+
+                # subject, english, description = _str_pre_process(subject, english, description)
                 if english:
                     try:
                         cayley_util.insert_quads_triple(subject, '英文名', english)
@@ -109,7 +111,6 @@ def import_excel_new_version(filename):
                     #just get a useful log and record it
                     app.logger.warning("[ImportError] : subject:{} doesn't has english name".format(subject.decode('utf-8')))
 
-                description = table.cell(i, 2).value.encode("utf-8")
                 if description:
                     try:
                         cayley_util.insert_quads_triple(subject, 'attribute:解释', description)
@@ -179,9 +180,9 @@ def import_excel_new_version(filename):
                 else:
                     app.logger.error("Something Error In --- Sheet 1 line id: {} --- :\n\twith traid:<{},{},{}>\nMay exists None Type data! Forbbiden".format(i, entity1, relation, entity2))
 
-def str_pre_process(*args, **kwargs):
+def _str_pre_process(*args, **kwargs):
     result = []
     for arg in args:
         arg = arg.replace('\n','\\n')
         result.append(arg)
-    return result
+    return result[0] if len(result)<=1 else result
