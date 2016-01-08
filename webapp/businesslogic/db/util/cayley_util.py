@@ -60,12 +60,12 @@ class CayleyUtil(object):
         #     "object": \"%s\"
         # }]""" % (temp_subject, temp_predicate, temp_object)
 
-        insert_json = '''
+        insert_json = """
         [{
             "subject": \"{0}\",
             "predicate": \"{1}\",
             "object": \"{2}\"
-        }]'''.format(temp_subject.encode('string-escape'), temp_predicate.encode('string-escape'), temp_object.encode('string-escape'))
+        }]""".format(temp_subject.encode('string-escape'), temp_predicate.encode('string-escape'), temp_object.encode('string-escape'))
 
         print 'insert_json is \n\n',insert_json
 
