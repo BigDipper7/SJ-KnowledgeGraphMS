@@ -25,12 +25,12 @@ def test_file_util_funcs():
     print "temp_dir:{}".format(temp_dir)
 
 def test_import_util():
-    a = r'foofoofoo\nfoofoo'
-    b = r'foofoofoo\\nfoofoo'
+    a = 'foofoofoo\nfoofoo'
+    b = 'foofoofoo\\nfoofoo'
     g = _str_pre_process(a)
     assert b == g
 
-    c = r'foo\n\nfooofoobar'
-    d = r'foo\\n\\nfooofoobar'
+    c = 'foo\n\nfooofoobar'
+    d = 'foo\\n\\nfooofoobar'
     e,f = _str_pre_process(a,c)
     assert e==b and f==d
