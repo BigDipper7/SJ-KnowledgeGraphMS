@@ -53,12 +53,19 @@ class CayleyUtil(object):
         return False if data.get("error", None) else True
 
     def insert_quads_triple(self, temp_subject, temp_predicate, temp_object):
-        insert_json = r"""
+        # insert_json = """
+        # [{
+        #     "subject": \"%s\",
+        #     "predicate": \"%s\",
+        #     "object": \"%s\"
+        # }]""" % (temp_subject, temp_predicate, temp_object)
+
+        insert_json = r'''
         [{
-            "subject": \"%s\",
-            "predicate": \"%s\",
-            "object": \"%s\"
-        }]""" % (temp_subject, temp_predicate, temp_object)
+            "subject": "{0}",
+            "predicate": "{1}",
+            "object": "{2}"
+        }]'''.format(temp_subject.encode('string-escape'), temp_predicate.encode('string-escape'), temp_object.encode('string-escape'))
 
     	# just for logging and for record
     	app.logger.info("Log: Insert - Ready to insert succeed, triad:< {}, {}, {} >".format(temp_subject.decode("utf-8"), temp_predicate.decode("utf-8"), temp_object.decode("utf-8")))
@@ -72,7 +79,7 @@ class CayleyUtil(object):
         return False if data.get("error", None) else True
 
     def delete_quads_triple(self, temp_subject, temp_predicate, temp_object):
-        delete_json = r"""
+        delete_json = """
         [{
             "subject": \"%s\",
             "predicate": \"%s\",
