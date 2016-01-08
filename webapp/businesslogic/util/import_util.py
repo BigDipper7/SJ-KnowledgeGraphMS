@@ -130,7 +130,15 @@ def import_excel_new_version(filename):
                     entityMap[subject] = tongyis
                     for word in tongyis:
 
-                        # add subject relation description
+                        # add subject relation word
+                        try:
+                            cayley_util.insert_quads_triple(subject, '别名', word)
+                            app.logger.info("[Success] : insert Success with traid <{};\n{};\n{};>".format(subject.decode('utf-8'), '别名', word.decode('utf-8')))
+                        except Exception as e:
+                            app.logger.error("[Log] : ImportError, except in subject:{} with nickname:{}".format(subject.decode('utf-8'), word.decode('utf-8')))
+                            raise
+
+                        # add word relation description
                         if description:
                             try:
                                 cayley_util.insert_quads_triple(word, 'attribute:解释', description)
@@ -173,7 +181,7 @@ def import_excel_new_version(filename):
 
                 #just do the pre-process
                 entity1, relation, entity2 = _str_pre_process(entity1, relation, entity2)
-                
+
                 app.logger.info("[Log] : traid after process in --- sheet 1, line id: {} --- :\n\t< {}; {}; {} >".format(i, entity1, relation, entity2))
 
                 if entity1 and relation and entity2:
