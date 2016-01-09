@@ -256,8 +256,8 @@ def _print_rlts_odata(rlts_origin_data):
         # print info
     return
 
-@app.route('/sjkg/submitCard', methods=['POST', 'GET'])
-@check_is_login(next_url = '/sjkg/submitCard')
+@app.route('/sjkg/submitCard', methods=['POST'])
+@check_is_login(next_url = '/sjkg/card')
 def submitCard():
     '''submitCard calling by the form post action happened in /sjkg/card
     '''
