@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from webapp import app
 
-from flask import render_template, redirect, url_for, request, flash, session
+from flask import render_template, redirect, url_for, request, flash, session, make_response
 # from flask.ext.script import Manager
 # from flask.ext.bootstrap import Bootstrap
 from webapp.businesslogic.db.util.cayley_util import CayleyUtil
@@ -274,6 +274,9 @@ def submitCard():
             flash("Can not find entity: {0}, Check it!".format(entity_name))
             return redirect(url_for('card'))
         else:
+            resp = make_response(render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name))
+            resp.headers["content-type"] = "text/plain"
+            # return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
             return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
 
 
