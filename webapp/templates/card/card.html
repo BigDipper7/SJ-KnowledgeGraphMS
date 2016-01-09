@@ -33,7 +33,7 @@
             <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
                 <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
                 <span>
-                    {% for sect_text__para item_attr.sect_text %}
+                    {% for sect_text__para in item_attr.sect_text %}
                         <p>
                             {{ sect_text__para }}
                         </p>
