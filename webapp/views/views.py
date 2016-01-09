@@ -277,7 +277,7 @@ def submitCard():
             resp = make_response(render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name))
             resp.headers["content-type"] = "text/plain"
             # return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
-            return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
+            return resp
 
 
 @app.route('/sjkg/search')
