@@ -28,6 +28,8 @@ Python Flask - Knowledge Graph Management System
 
 
 ## Bug fix list ##
+good now to fix bug in multi-lines display in card.html in sect_text, just pre-process all \n before send response back
+
 bug fix, bug because multi-lines in one excel cell, cause the constructed json data goes wrong
 we can use \n to instead, or use || such a symbol to present.
 
