@@ -230,10 +230,10 @@ def _process_rlts_odata(rlts_origin_data):
             # for index in range(hir_len,len(attrs_no)):
             #     attrs_no[index] = [1]
 
-            rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target.replace('\n','<br/>'),"margin_left":margin_left,"no":no})
+            rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target,"margin_left":margin_left,"no":no})
         else:
             #means not the atrribute
-            rest_non_attrs.append({'subject':item_rlts__source, 'predicate':item_rlts__relation.replace('\n','<br/>'), 'object':item_rlts__target.replace('\n','<br/>')})
+            rest_non_attrs.append({'subject':item_rlts__source, 'predicate':item_rlts__relation, 'object':item_rlts__target})
 
     return rest_attrs, rest_non_attrs
 

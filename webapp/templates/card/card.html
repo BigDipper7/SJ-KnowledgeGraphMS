@@ -32,7 +32,7 @@
         {% for item_attr in data.rest_attrs %}
             <div style="margin-left: {{ item_attr.margin_left * 50 }}px;">
                 <h2>{{ item_attr.no }} &nbsp {{ item_attr.sect_title }}</h2>
-                <div>{{ item_attr.sect_text }}</div>
+                <span>{{ item_attr.sect_text|replace('\n','\\n') }}</span>
             </div>
         {% else %}
             <div class="">
