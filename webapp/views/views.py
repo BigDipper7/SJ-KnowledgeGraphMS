@@ -230,7 +230,11 @@ def _process_rlts_odata(rlts_origin_data):
             # for index in range(hir_len,len(attrs_no)):
             #     attrs_no[index] = [1]
 
-            rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target,"margin_left":margin_left,"no":no})
+            #pre process in sect_text, can display multi line texy field
+            sect_text__paras = item_rlts__target.split('\n')
+
+            # rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target,"margin_left":margin_left,"no":no})
+            rest_attrs.append({"sect_title":sect_title,"sect_text":sect_text__paras,"margin_left":margin_left,"no":no})
         else:
             #means not the atrribute
             rest_non_attrs.append({'subject':item_rlts__source, 'predicate':item_rlts__relation, 'object':item_rlts__target})
