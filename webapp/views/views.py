@@ -171,8 +171,6 @@ def fetch_relations_by_entity(name):
         #handle condition if not exist the entityname
         return None, None
 
-    # print 'all changes....'
-
     app.logger.info("show data in rlts_origin_data query by entity name:{0}",name)
     _print_rlts_odata(rlts_origin_data)
 
@@ -210,6 +208,8 @@ def _process_rlts_odata(rlts_origin_data):
         item_rlts__relation = item_rlts['relation']
         item_rlts__id = item_rlts['id']
         item_rlts__target = item_rlts['target']
+
+        # just identify this triad is relation or concept's attribute
         if item_rlts__relation.startswith("attribute:"):
             #means atrribute if curren entity
             item_rlts__relation = item_rlts__relation.replace("attribute:","")#del no useful attribute: prefix
@@ -230,10 +230,10 @@ def _process_rlts_odata(rlts_origin_data):
             # for index in range(hir_len,len(attrs_no)):
             #     attrs_no[index] = [1]
 
-            rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target,"margin_left":margin_left,"no":no})
+            rest_attrs.append({"sect_title":sect_title,"sect_text":item_rlts__target.replace('\n','<br/>'),"margin_left":margin_left,"no":no})
         else:
             #means not the atrribute
-            rest_non_attrs.append({'subject':item_rlts__source, 'predicate':item_rlts__relation, 'object':item_rlts__target})
+            rest_non_attrs.append({'subject':item_rlts__source, 'predicate':item_rlts__relation.replace('\n','<br/>'), 'object':item_rlts__target.replace('\n','<br/>')})
 
     return rest_attrs, rest_non_attrs
 
