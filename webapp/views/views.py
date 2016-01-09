@@ -161,11 +161,12 @@ def home():
 
 
 def fetch_relations_by_entity(name):
-    result_rlts = []
+    ''' just to fetch all triads through @param name [enetity name]
+    '''
+    # result_rlts = []
     cayley_util = CayleyUtil()
     #get result  relations origin data
     rlts_origin_data = cayley_util.find_relations_from_node(name)
-
     if not rlts_origin_data:
         #handle condition if not exist the entityname
         return None, None
