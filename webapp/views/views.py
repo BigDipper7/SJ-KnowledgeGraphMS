@@ -181,18 +181,19 @@ def fetch_relations_by_entity(name):
     app.logger.info("show data in rlts_origin_data after sort")
     _print_rlts_odata(rlts_origin_data)
 
-    for item_rlts in rlts_origin_data:
-        if not item_rlts['relation'].startswith("attribute:"):
-            continue
-        predicate = item_rlts['relation'].replace("attribute:", "").split("/")
-        p_len = len(predicate)
-        real_concept_1_subject = predicate[p_len - 1]
-
-        result_rlts.append({"sect_title": real_concept_1_subject, "sect_text": item_rlts['target'], "margin_left": (p_len - 1) * 50})
+    # useless error code block
+    # for item_rlts in rlts_origin_data:
+    #     if not item_rlts['relation'].startswith("attribute:"):
+    #         continue
+    #     predicate = item_rlts['relation'].replace("attribute:", "").split("/")
+    #     p_len = len(predicate)
+    #     real_concept_1_subject = predicate[p_len - 1]
+    #
+    #     result_rlts.append({"sect_title": real_concept_1_subject, "sect_text": item_rlts['target'], "margin_left": (p_len - 1) * 50})
 
     rest_attrs, rest_non_attrs = _process_rlts_odata(rlts_origin_data)
-    app.logger.error(rest_attrs)
-    app.logger.error(rest_non_attrs)
+    app.logger.info(rest_attrs)
+    app.logger.info(rest_non_attrs)
     # return result_rlts
     return rest_attrs, rest_non_attrs
 
