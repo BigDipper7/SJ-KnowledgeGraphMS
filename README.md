@@ -24,6 +24,11 @@ Python Flask - Knowledge Graph Management System
 - Today do nothing
 
 
+## Bug Wanted ##
+- i guess the reason why it shows such a error, maybe just because that what you  
+   do has change it, for the reason is there are two reasons, first one is that you  
+   has post two same request but no response, maybe you needed to shorten the request  
+   frequence, also maybe there two processing way, add lock or make other things.
 
 
 
