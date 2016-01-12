@@ -22,7 +22,7 @@ Python Flask - Knowledge Graph Management System
 - fulfill all in `test-all.py`
 - fix order bug, and other things doesn't matter
 - Today do nothing
-
+- Need to change many alert to a new type, just like flash
 
 ## Bug Wanted ##
 - i guess the reason why it shows such a error, maybe just because that what you  

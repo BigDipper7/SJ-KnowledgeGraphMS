@@ -200,19 +200,19 @@
         });
 
         $('.delete_triple').on("click", function() {
-            console.log($(this));
-            console.log($(this)[0].parentNode);
-            console.log($(this)[0].parentNode.parentNode);
+            // console.log($(this));
+            // console.log($(this)[0].parentNode);
+            // console.log($(this)[0].parentNode.parentNode);
             // console.log($(this));
             // $(this) gets current delete button
             var btnsParent = $(this)[0].parentNode;
             var btns = btnsParent.childNodes;
-            var btnEdit = btns[0];
-            var btnDel = btns[1];
-            var btnInfo = btns[2];
-            console.log(btnsParent);
-            console.log(btns);
-            console.log(btnEdit);
+            var btnEdit = btns[1];
+            var btnDel = btns[3];
+            var btnInfo = btns[5];
+            // console.log(btnsParent);
+            // console.log(btns);
+            // console.log(btnEdit);
 
             var itemNodesParent = btnsParent.parentNode;
             var itemNodes = itemNodesParent.childNodes;
@@ -223,6 +223,10 @@
             var confirm_content = "确定要删除关系(" + temp_subject + ", " + temp_predicate + ", " + temp_object + ")么？";
             // var postData = 'subject=' + temp_subject + '&predicate=' + temp_predicate + '&object=' + temp_object;
             if (confirm(confirm_content) == true) {
+                //disable all btns
+                btnEdit.prop('disabled',true);
+                btnDel.prop('disabled',true);
+                btnInfo.prop('disabled',true);
 
                 data = {};
                 data['subject'] = temp_subject;
@@ -235,8 +239,20 @@
                     data: JSON.stringify(data, null, '\t'),
                     contentType: 'application/json;charset=UTF-8',
                     crossDomain: true,
-                    success: function(data) {
+                    success: function(data, textStatus) {
+                        //disable all btns
+                        btnEdit.prop('disabled',false);
+                        btnDel.prop('disabled',false);
+                        btnInfo.prop('disabled',false);
                         $('#triples').DataTable().row('.selected_delete').remove().draw(false);
+                    },
+                    timeout: 10000,
+                    error: function(xhr, textStatus, errorThrown){
+                       alert('Unknown error, contact your administrator.');//needed to change type
+                       //disable all btns
+                       btnEdit.prop('disabled',false);
+                       btnDel.prop('disabled',false);
+                       btnInfo.prop('disabled',false);
                     },
                     dataType: "json"
                 });
