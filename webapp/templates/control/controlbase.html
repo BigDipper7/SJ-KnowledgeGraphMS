@@ -204,9 +204,18 @@
             console.log($(this)[0].parentNode);
             console.log($(this)[0].parentNode.parentNode);
             // console.log($(this));
-            var itemNodesParent = $(this)[0].parentNode.parentNode;
+            // $(this) gets current delete button
+            var btnsParent = $(this)[0].parentNode;
+            var btns = btnsParent.childNodes;
+            var btnEdit = btns[0];
+            var btnDel = btns[1];
+            var btnInfo = btns[2];
+            console.log(btnsParent);
+            console.log(btnEdit);
+
+            var itemNodesParent = btnsParent.parentNode;
             var itemNodes = itemNodesParent.childNodes;
-            console.log(itemNodes);
+            // console.log(itemNodes);
             var temp_subject = itemNodes[1].innerHTML;
             var temp_predicate = itemNodes[3].innerHTML;
             var temp_object = itemNodes[5].innerHTML;
