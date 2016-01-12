@@ -201,6 +201,9 @@
 
         $('.delete_triple').on("click", function() {
             console.log($(this));
+            console.log($(this)[0].parentNode);
+            console.log($(this)[0].parentNode.parentNode);
+            // console.log($(this));
             var itemNodesParent = $(this)[0].parentNode.parentNode;
             var itemNodes = itemNodesParent.childNodes;
             console.log(itemNodes);
