@@ -119,19 +119,24 @@ def control_relation_delete():
     # subject = request.args.get("subject").encode("utf-8")
     # object = request.args.get("object").encode("utf-8")
     # predicate = request.args.get("predicate").encode("utf-8")
-    subject = request.json["subject"].encode("utf-8")
-    object = request.json["object"].encode("utf-8")
-    predicate = request.json["predicate"].encode("utf-8")
-    print subject, object, predicate
+    c_subject = request.json["subject"].encode("utf-8")
+    c_predicate = request.json["predicate"].encode("utf-8")
+    c_object = request.json["object"].encode("utf-8")
+    # print subject, object, predicate
+    app.logger.info('[Delete] : prepare to delete triple:\n< {}, {}, {} >'.format(c_subject, c_predicate, c_object))
 
     result = False
 
-    if subject and object and predicate:
+    if c_subject and c_predicate and c_object:
         cayley_util = CayleyUtil()
         try:
-            result = cayley_util.delete_quads_triple(subject, predicate, object)
+            result = cayley_util.delete_quads_triple(c_subject, c_predicate, c_object)
         except Exception as e:
-            app.logger.error(traceback.format_exc())
+            # app.logger.error(traceback.format_exc())
+            app.logger.error('[Error] : Exception occurs in DELETE with triple:\n<{},{},{}>'.format(c_subject, c_predicate, c_object))
+            raise
+    app.logger.info("[Success] : Delete succeed" if result else "[Failure] : Delete failed, read mongodb.cayley.log.")
+
     return json.dumps({"result": result})
 
 
