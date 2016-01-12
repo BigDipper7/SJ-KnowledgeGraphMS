@@ -224,9 +224,9 @@
             // var postData = 'subject=' + temp_subject + '&predicate=' + temp_predicate + '&object=' + temp_object;
             if (confirm(confirm_content) == true) {
                 //disable all btns
-                btnEdit.prop('disabled',true);
-                btnDel.prop('disabled',true);
-                btnInfo.prop('disabled',true);
+                btnEdit.attr('disabled',true);
+                btnDel.attr('disabled',true);
+                btnInfo.attr('disabled',true);
 
                 data = {};
                 data['subject'] = temp_subject;
@@ -241,18 +241,18 @@
                     crossDomain: true,
                     success: function(data, textStatus) {
                         //disable all btns
-                        btnEdit.prop('disabled',false);
-                        btnDel.prop('disabled',false);
-                        btnInfo.prop('disabled',false);
+                        btnEdit.attr('disabled',false);
+                        btnDel.attr('disabled',false);
+                        btnInfo.attr('disabled',false);
                         $('#triples').DataTable().row('.selected_delete').remove().draw(false);
                     },
                     timeout: 10000,
                     error: function(xhr, textStatus, errorThrown){
                        alert('Unknown error, contact your administrator.');//needed to change type
                        //disable all btns
-                       btnEdit.prop('disabled',false);
-                       btnDel.prop('disabled',false);
-                       btnInfo.prop('disabled',false);
+                       btnEdit.attr('disabled',false);
+                       btnDel.attr('disabled',false);
+                       btnInfo.attr('disabled',false);
                     },
                     dataType: "json"
                 });
