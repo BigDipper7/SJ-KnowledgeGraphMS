@@ -6,7 +6,7 @@ from flask import render_template, redirect, url_for, request, flash, session, m
 # from flask.ext.script import Manager
 # from flask.ext.bootstrap import Bootstrap
 from webapp.businesslogic.db.util.cayley_util import CayleyUtil
-from webapp.businesslogic.util.import_util import import_excel_new_version
+from webapp.businesslogic.util.import_util import import_excel_new_version, _str_pre_process
 from webapp.forms import AddRelationForm
 import json
 import threading
@@ -126,6 +126,9 @@ def control_relation_delete():
     app.logger.info('[Delete] : prepare to delete triple:\n< {}, {}, {} >'.format(c_subject, c_predicate, c_object))
 
     result = False
+
+    #pre process to  encode \n to \\n, just to make such string-escape before getting a json
+    c_subject, c_predicate, c_object = _str_pre_process(c_subject, c_predicate, c_object)
 
     if c_subject and c_predicate and c_object:
         cayley_util = CayleyUtil()
