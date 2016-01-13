@@ -87,6 +87,9 @@ class CayleyUtil(object):
             "predicate": \"%s\",
             "object": \"%s\"
         }]""" % (temp_subject, temp_predicate, temp_object)
+
+        print 'delete_json is \n\n',delete_json
+
         return self.delete_quads(delete_json)
 
     def find_relations(self, node):
