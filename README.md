@@ -23,6 +23,14 @@ Python Flask - Knowledge Graph Management System
 - fix order bug, and other things doesn't matter
 - Today do nothing
 - Need to change many alert to a new type, just like flash
+- find another bug, reason is that in the beginning of the string has a whitespace,  
+  but in HTML, this beginning whitespace will be transfer into `&nbsp`, but when we  
+  just post it to our server, this whitespace still be `&nbsp`, so it delete with a  
+  wrong triples`'{}, {}, {'&nbspBLABLABLA BALBALBAL'}'`, so you can deal with such   
+  things when you get to import such data, Gooooooood
+- for delete, it just because you have make a wrong things that delete also must   
+escape `\n` to  `\\n`, that the reason.
+
 
 ## Bug Wanted ##
 - i guess the reason why it shows such a error, maybe just because that what you  
