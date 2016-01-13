@@ -197,6 +197,7 @@ def import_excel_new_version(filename):
 def _str_pre_process(*args, **kwargs):
     result = []
     for arg in args:
+        arg = arg.strip()#del beginning and trailing \n\t\  and whitespace such things, only beginning and trailing
         arg = arg.replace('\n','\\n')
         result.append(arg)
     return result[0] if len(result)<=1 else result
