@@ -291,6 +291,36 @@ def submitCard():
             # return resp
             return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
 
+@app.route('/sjkg/test', method=['POST'])
+def test():
+    '''submitCard calling by the form post action happened in /sjkg/card
+    '''
+    if request.method == "POST":
+        entity_name = request.form["entity_name"].encode("utf-8")
+
+        if not entity_name:
+            app.logger.warning("No Input in form['entity_name'] from card page, alert~")
+            flash("Field content can not be empty! Try again!")
+            return redirect(url_for('card'))
+
+        # result_rlts = fetch_relations_by_entity(entity_name)
+        rest_attrs, rest_non_attrs = fetch_relations_by_entity(entity_name)
+
+        if not rest_attrs and not rest_non_attrs:
+            # when result_rlts is None means no such entity found!
+            app.logger.warning("No such entity: {0}".format(entity_name))
+            flash("Can not find entity: {0}, Check it!".format(entity_name))
+            return redirect(url_for('card'))
+        else:
+            # resp = make_response(render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name))
+            # resp.headers["content-type"] = "text/plain"
+            # return resp
+            # return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
+            test={}
+            test['rest_attrs'] = rest_attrs
+            test['rest_non_attrs'] = rest_non_attrs
+
+            return json.dumps(test)
 
 @app.route('/sjkg/search')
 def search():
