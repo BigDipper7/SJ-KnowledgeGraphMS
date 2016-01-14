@@ -291,7 +291,7 @@ def submitCard():
             # return resp
             return render_template("card/card.html", data={"rest_attrs": rest_attrs, "rest_non_attrs":rest_non_attrs}, name=entity_name)
 
-@app.route('/sjkg/test', method=['POST'])
+@app.route('/sjkg/test', methods=['POST'])
 def test():
     '''submitCard calling by the form post action happened in /sjkg/card
     '''
