@@ -31,7 +31,7 @@ def make_session_permanent():
     '''setting for session expire span, now we set it to 3min
     '''
     # app.logger.info("@app.before_request invoke, refresh session expire time")
-    expire_span = 5#5 minutes
+    expire_span = 30#30 minutes
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=expire_span)
 
