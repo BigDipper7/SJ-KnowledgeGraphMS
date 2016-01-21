@@ -128,7 +128,7 @@ def control_relation_delete():
     result = False
 
     #pre process to  encode \n to \\n, just to make such string-escape before getting a json
-    c_subject, c_predicate, c_object = _str_pre_process(unescape=True, c_subject, c_predicate, c_object)
+    c_subject, c_predicate, c_object = _str_pre_process(True, c_subject, c_predicate, c_object)
 
     if c_subject and c_predicate and c_object:
         cayley_util = CayleyUtil()

@@ -101,7 +101,7 @@ def import_excel_new_version(filename):
 
                 # english = english.replace('\n','\\n')
 
-                subject, english, description = _str_pre_process(subject, english, description)
+                subject, english, description = _str_pre_process(False, subject, english, description)
                 if english:
                     try:
                         cayley_util.insert_quads_triple(subject, '英文名', english)
@@ -126,7 +126,7 @@ def import_excel_new_version(filename):
                     app.logger.warning("[ImportError] : description is None in subject:{}".format(subject.decode('utf-8')))
 
                 tongyi = table.cell(i, 3).value.encode("utf-8")
-                tongyi = _str_pre_process(tongyi)
+                tongyi = _str_pre_process(False, tongyi)
                 if tongyi:
                     tongyis = tongyi.split("/")
                     entityMap[subject] = tongyis
@@ -182,7 +182,7 @@ def import_excel_new_version(filename):
                 # print entity2.decode("utf-8")
 
                 #just do the pre-process
-                entity1, relation, entity2 = _str_pre_process(entity1, relation, entity2)
+                entity1, relation, entity2 = _str_pre_process(False, entity1, relation, entity2)
 
                 app.logger.info("[Log] : traid after process in --- sheet 1, line id: {} --- :\n\t< {}; {}; {} >".format(i, entity1, relation, entity2))
 
