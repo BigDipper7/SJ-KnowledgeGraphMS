@@ -59,13 +59,19 @@ class CayleyUtil(object):
         #     "predicate": \"%s\",
         #     "object": \"%s\"
         # }]""" % (temp_subject, temp_predicate, temp_object)
+        dict_insert_data = {}
+        dict_insert_data['subject'] = temp_subject
+        dict_insert_data['predicate'] = temp_predicate
+        dict_insert_data['object'] = temp_object
 
-        insert_json = """
-        [{
-            "subject": \"%s\",
-            "predicate": \"%s\",
-            "object": \"%s\"
-        }]""" % (temp_subject, temp_predicate, temp_object)
+        insert_json = json.dumps(dict_insert_data)
+
+        # insert_json = """
+        # [{
+        #     "subject": \"%s\",
+        #     "predicate": \"%s\",
+        #     "object": \"%s\"
+        # }]""" % (temp_subject, temp_predicate, temp_object)
 
         print 'insert_json is \n\n',insert_json
 
