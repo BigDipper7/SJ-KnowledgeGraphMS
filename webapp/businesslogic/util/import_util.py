@@ -195,9 +195,12 @@ def import_excel_new_version(filename):
                     app.logger.error("Something Error In --- Sheet 1 line id: {} --- :\n\twith traid:<{},{},{}>\nMay exists None Type data! Forbbiden".format(i, entity1, relation, entity2))
 
 def _str_pre_process(*args, **kwargs):
+    '''
+    Do some such pre string process here.... to be finish all funcs
+    '''
     result = []
     for arg in args:
         arg = arg.strip()#del beginning and trailing \n\t\  and whitespace such things, only beginning and trailing
-        arg = arg.replace('\n','\\n')
+        # arg = arg.replace('\n','\\n')
         result.append(arg)
     return result[0] if len(result)<=1 else result
