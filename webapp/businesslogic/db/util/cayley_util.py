@@ -63,8 +63,9 @@ class CayleyUtil(object):
         dict_insert_data['subject'] = temp_subject
         dict_insert_data['predicate'] = temp_predicate
         dict_insert_data['object'] = temp_object
-
-        insert_json = json.dumps(dict_insert_data)
+        tuple_insert_data = []
+        tuple_insert_data.append(dict_insert_data)
+        insert_json = json.dumps(tuple_insert_data)
 
         # insert_json = """
         # [{
