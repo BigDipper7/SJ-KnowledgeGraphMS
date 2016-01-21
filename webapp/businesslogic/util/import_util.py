@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from flask import Markup
+
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -194,7 +196,7 @@ def import_excel_new_version(filename):
                 else:
                     app.logger.error("Something Error In --- Sheet 1 line id: {} --- :\n\twith traid:<{},{},{}>\nMay exists None Type data! Forbbiden".format(i, entity1, relation, entity2))
 
-def _str_pre_process(*args, **kwargs):
+def _str_pre_process(unescape=None, *args, **kwargs):
     '''
     Do some such pre string process here.... to be finish all funcs
     '''
@@ -202,5 +204,7 @@ def _str_pre_process(*args, **kwargs):
     for arg in args:
         arg = arg.strip()#del beginning and trailing \n\t\  and whitespace such things, only beginning and trailing
         # arg = arg.replace('\n','\\n')
+        if(unescape):
+            arg = Markup(arg).unescape()
         result.append(arg)
     return result[0] if len(result)<=1 else result
