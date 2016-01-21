@@ -88,12 +88,20 @@ class CayleyUtil(object):
         return False if data.get("error", None) else True
 
     def delete_quads_triple(self, temp_subject, temp_predicate, temp_object):
-        delete_json = """
-        [{
-            "subject": \"%s\",
-            "predicate": \"%s\",
-            "object": \"%s\"
-        }]""" % (temp_subject, temp_predicate, temp_object)
+        # delete_json = """
+        # [{
+        #     "subject": \"%s\",
+        #     "predicate": \"%s\",
+        #     "object": \"%s\"
+        # }]""" % (temp_subject, temp_predicate, temp_object)
+
+        dict_delete_data = {}
+        dict_delete_data['subject'] = temp_subject
+        dict_delete_data['predicate'] = temp_predicate
+        dict_delete_data['object'] = temp_object
+        tuple_delete_data = []
+        tuple_delete_data.append(dict_delete_data)
+        delete_json = json.dumps(tuple_delete_data)
 
         print 'delete_json is \n\n',delete_json
 
