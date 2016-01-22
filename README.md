@@ -24,8 +24,6 @@ Python Flask - Knowledge Graph Management System
 - Need to change many alert to a new type, just like flash
 - enhance: concurrency many people delete one at same time;
 - enhance: flash with args
-- enhance: Unknown char may make your delete char failed. like this sting ' natural person'  
-  {just copy and paste}, the beginning of this string is an Unknown char, invisible also.  
 - enhance: return is true or false for delete action
 - enhance: change to delete useless log clause
 
@@ -65,3 +63,13 @@ we can use \n to instead, or use || such a symbol to present.
   second. Unknown char, the example is in the beginning
 
 - enhance: change for `json.dumps(dict)` not use current manually add a json string
+
+
+- enhance: Unknown char may make your delete char failed. like this sting ' natural person'  
+  {just copy and paste}, the beginning of this string is an Unknown char, invisible also.  
+  fix such a bug, because jinja2 will auto-escape, so such `Unknown character` may be auto-escape  
+  to some curious html tag, just for secure reason, for not be XSS, so the auto-escape must be  
+  open, but in the server side, i can use flask.Markup.unescape to handle the escaped post data  
+  , and BTW, WTF, just fix Unknown character can not delete error, goooooooood, just fix this bug  
+
+-
