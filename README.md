@@ -21,14 +21,12 @@ Python Flask - Knowledge Graph Management System
 - add `MongoDB` Management System
 - fulfill all in `test-all.py`
 - fix order bug, and other things doesn't matter
-- Today do nothing
 - Need to change many alert to a new type, just like flash
 - enhance: concurrency many people delete one at same time;
 - enhance: flash with args
 - enhance: Unknown char may make your delete char failed. like this sting ' natural person'  
   {just copy and paste}, the beginning of this string is an Unknown char, invisible also.  
 - enhance: return is true or false for delete action
-- enhance: change for `json.dumps(dict)` not use current manually add a json string
 - enhance: change to delete useless log clause
 
 
@@ -42,16 +40,16 @@ Python Flask - Knowledge Graph Management System
 
 
 ## Bug fix list ##
-good now to fix bug in multi-lines display in card.html in sect_text, just pre-process all \n before send response back
+- good now to fix bug in multi-lines display in card.html in sect_text, just pre-process all \n before send response back
 
-bug fix, bug because multi-lines in one excel cell, cause the constructed json data goes wrong
+- bug fix, bug because multi-lines in one excel cell, cause the constructed json data goes wrong
 we can use \n to instead, or use || such a symbol to present.
 
-exists bug, can not delete absolutely, will fix it next day. it doesn't matter
+- exists bug, can not delete absolutely, will fix it next day. it doesn't matter
 
-needed feature, add delete all button,
-fix bug
-add multi-lines present page in card.html
+- needed feature, add delete all button,
+- fix bug
+- add multi-lines present page in card.html
 
 - find another bug, reason is that in the beginning of the string has a whitespace,  
   but in HTML, this beginning whitespace will be transfer into `&nbsp`, but when we  
@@ -65,3 +63,5 @@ add multi-lines present page in card.html
 - the real reason for delete is the:  
   first, \n not change to \\n in json format_exc  
   second. Unknown char, the example is in the beginning
+
+- enhance: change for `json.dumps(dict)` not use current manually add a json string
