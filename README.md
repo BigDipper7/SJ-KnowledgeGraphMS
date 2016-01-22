@@ -72,4 +72,6 @@ we can use \n to instead, or use || such a symbol to present.
   open, but in the server side, i can use flask.Markup.unescape to handle the escaped post data  
   , and BTW, WTF, just fix Unknown character can not delete error, goooooooood, just fix this bug  
 
--
+- bug fix in invisible code of delete bug, the reason is because that invisible character is 'NBSP'  
+  in python string is: in `utf-8` `'\xc2\xa0'` in `unicode` `'\xa0'`, if it is `auto-escape` by flask  
+  it will be `'&nbsp;'` in `HTML`
