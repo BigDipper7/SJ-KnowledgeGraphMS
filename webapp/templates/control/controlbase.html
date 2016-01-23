@@ -286,7 +286,7 @@
             var postData = 'subject=' + delete_subject + '&predicate=' + delete_predicate + '&object=' + delete_object;
             $.ajax({
                 type: 'GET',
-                url: "/sjkg/control/relation/delete",
+                url: "{{ url_for('control_relation_delete') }}",
                 data: postData,
                 crossDomain: true,
                 success: function(data) {
