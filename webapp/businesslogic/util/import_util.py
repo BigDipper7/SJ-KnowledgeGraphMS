@@ -16,6 +16,7 @@ from webapp import app
 
 
 def import_excel(filename):
+    '''@deprecated'''
     cayley_util = CayleyUtil()
     data = xlrd.open_workbook(filename)
     entities = []
