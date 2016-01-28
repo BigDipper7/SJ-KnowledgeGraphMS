@@ -75,3 +75,6 @@ we can use \n to instead, or use || such a symbol to present.
 - bug fix in invisible code of delete bug, the reason is because that invisible character is 'NBSP'  
   in python string is: in `utf-8` `'\xc2\xa0'` in `unicode` `'\xa0'`, if it is `auto-escape` by flask  
   it will be `'&nbsp;'` in `HTML`
+
+## Change List ##
+- Add deprecated annotation, will delete useless code blocks in few days
